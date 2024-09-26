@@ -15,8 +15,7 @@ function ForgotPassword() {
                             <input
                                 type="email"
                                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-                                placeholder="Enter your email"
-                            />
+                                placeholder="Enter your email"/>
 
                             <button
                                 type="submit"

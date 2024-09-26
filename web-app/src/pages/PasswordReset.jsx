@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 function PasswordReset() {
     const navigate = useNavigate();
@@ -21,16 +21,14 @@ function PasswordReset() {
                                 type="password"
                                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
                                 placeholder="Enter your new password"
-                                required
-                            />
+                                required/>
 
                             <label className="font-semibold text-sm pb-1 block text-gray-700">Confirm Password</label>
                             <input
                                 type="password"
                                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
                                 placeholder="Confirm your new password"
-                                required
-                            />
+                                required/>
 
                             <button
                                 type="submit"

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 function Login() {
     const navigate = useNavigate();
-    
+
     const goToDashboard = () => {
-        navigate('/dashboard'); 
+        navigate('/dashboard');
     };
 
     const goToForgotPassword = () => {
@@ -23,15 +23,13 @@ function Login() {
                             <input
                                 type="email"
                                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-                                placeholder="Enter your email"
-                            />
+                                placeholder="Enter your email"/>
 
                             <label className="font-semibold text-sm pb-1 block text-gray-700">Password</label>
                             <input
                                 type="password"
                                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-                                placeholder="Enter your password"
-                            />
+                                placeholder="Enter your password"/>
 
                             <button
                                 onClick={goToDashboard}
