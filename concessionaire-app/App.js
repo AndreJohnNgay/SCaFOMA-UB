@@ -12,6 +12,7 @@ import ConcessionScreen from './Screens/ConcessionScreen';
 import ScanQRScreen from './Screens/ScanQRScreen';
 import GraphsScreen from './Screens/GraphsScreen';
 import ProfileScreen from './Screens/ProfileScreen';
+import ViewOrderScreen from './Screens/ViewOrderScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -73,6 +74,7 @@ const App = () => {
         <Stack.Screen name="Main" component={MainTabNavigator} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="ViewOrder" component={ViewOrderScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
