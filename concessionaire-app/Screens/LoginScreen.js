@@ -26,12 +26,13 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
+      
+      {/* <TouchableOpacity
         style={styles.linkButton}
         onPress={() => navigation.navigate('Register')}
       >
         <Text style={styles.linkText}>Don't have an account? Register</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity
         style={styles.linkButton}
