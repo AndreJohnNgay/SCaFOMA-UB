@@ -68,7 +68,6 @@ const ConcessionScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Add Item</Text>
       </TouchableOpacity>
 
-      {/* Add Item Modal */}
       <AddItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}

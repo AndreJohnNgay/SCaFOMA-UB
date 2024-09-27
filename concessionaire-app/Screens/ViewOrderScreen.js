@@ -4,14 +4,12 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react
 const ViewOrderScreen = ({ route, navigation }) => {
   const { order, setPendingOrders, setAcceptedOrders } = route.params;
 
-  // Function to accept the order
   const acceptOrder = () => {
     setAcceptedOrders(prevOrders => [...prevOrders, { ...order, status: 'accepted' }]);
     setPendingOrders(prevOrders => prevOrders.filter(o => o.id !== order.id));
     navigation.navigate('Orders');
   };
 
-  // Function to decline the order
   const declineOrder = () => {
     Alert.alert(
       "Confirm Decline",
@@ -28,7 +26,6 @@ const ViewOrderScreen = ({ route, navigation }) => {
     );
   };
 
-  // Function to mark as no show
   const markAsNoShow = () => {
     setAcceptedOrders(prevOrders => 
       prevOrders.map(o => 
@@ -38,7 +35,6 @@ const ViewOrderScreen = ({ route, navigation }) => {
     navigation.navigate('Orders');
   };
 
-  // Calculate the total price of the order in PHP
   const calculateTotalPrice = () => {
     return order.items.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
   };
@@ -59,13 +55,12 @@ const ViewOrderScreen = ({ route, navigation }) => {
       <FlatList
         data={order.items}
         renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()} // Use index as key for items
+        keyExtractor={(item, index) => index.toString()}
         style={styles.itemList}
       />
       
       <Text style={styles.totalPrice}>Total Price: ₱{calculateTotalPrice()}</Text>
       
-      {/* Show buttons only if the order is still pending or accepted */}
       {order.status === 'pending' && (
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.acceptButton} onPress={acceptOrder}>

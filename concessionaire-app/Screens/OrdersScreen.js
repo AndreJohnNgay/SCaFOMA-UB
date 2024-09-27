@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 
 const OrdersScreen = ({ navigation }) => {
-  // Initial state for orders
   const [pendingOrders, setPendingOrders] = useState([
     {
       id: '1',
@@ -37,7 +36,6 @@ const OrdersScreen = ({ navigation }) => {
     },
   ]);
 
-  // Function to navigate to ViewOrderScreen
   const viewOrder = (order) => {
     navigation.navigate('ViewOrder', { order, setPendingOrders, setAcceptedOrders });
   };
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   viewButton: {
-    backgroundColor: 'rgb(174,12,46)', // Consistent button color
+    backgroundColor: 'rgb(174,12,46)',
     padding: 10,
     borderRadius: 5,
   },
