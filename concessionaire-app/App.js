@@ -4,15 +4,19 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import LoginScreen from './Screens/LoginScreen';
-import RegisterScreen from './Screens/RegisterScreen';
-import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
-import OrdersScreen from './Screens/OrdersScreen';
-import ConcessionScreen from './Screens/ConcessionScreen';
-import ScanQRScreen from './Screens/ScanQRScreen';
-import GraphsScreen from './Screens/GraphsScreen';
-import ProfileScreen from './Screens/ProfileScreen';
-import ViewOrderScreen from './Screens/ViewOrderScreen';
+import LoginScreen from './Screens/Auth/LoginScreen';
+import RegisterScreen from './Screens/Auth/RegisterScreen';
+import ForgotPasswordScreen from './Screens/Auth/ForgotPasswordScreen';
+import OrdersScreen from './Screens/Orders/OrdersScreen';
+import ConcessionScreen from './Screens/Concession/ConcessionScreen';
+import ScanQRScreen from './Screens/ScanQR/ScanQRScreen';
+import GraphsScreen from './Screens/Graphs/GraphsScreen';
+import ProfileScreen from './Screens/Profile/ProfileScreen';
+import ViewOrderScreen from './Screens/Orders/ViewOrderScreen';
+import ViewMenuItemScreen from './Screens/Concession/ViewMenuItemScreen';
+import AddItemScreen from './Screens/Concession/AddItemScreen';
+import AddItemSizesPricesScreen from './Screens/Concession/AddItemSizesPricesScreen';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -70,11 +74,15 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {/* <Stack.Screen name="" component={} /> */}
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Main" component={MainTabNavigator} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="ViewOrder" component={ViewOrderScreen} />
+        <Stack.Screen name="ViewMenuItem" component={ViewMenuItemScreen} />
+        <Stack.Screen name="AddItemScreen" component={AddItemScreen} />
+        <Stack.Screen name="AddItemSizesPrices" component={AddItemSizesPricesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

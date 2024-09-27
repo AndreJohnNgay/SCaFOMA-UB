@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import AddItemModal from '../Components/AddItemModal';
 
 const ConcessionScreen = ({ navigation }) => {
   const [menuItems, setMenuItems] = useState([
@@ -27,7 +26,6 @@ const ConcessionScreen = ({ navigation }) => {
       image: null,
     },
   ]);
-  const [modalVisible, setModalVisible] = useState(false);
 
   const handleAddItem = (newItem) => {
     setMenuItems(prevItems => [...prevItems, newItem]);
@@ -42,9 +40,9 @@ const ConcessionScreen = ({ navigation }) => {
         </Text>
       ))}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity 
-          style={styles.viewButton} 
-          onPress={() => navigation.navigate('ViewMenuItemScreen', { item })} // Navigate to ViewMenuItemScreen
+        <TouchableOpacity
+          style={styles.viewButton}
+          onPress={() => navigation.navigate('ViewMenuItem', { item })} // Navigate to ViewMenuItemScreen
         >
           <Text style={styles.buttonText}>View</Text>
         </TouchableOpacity>
@@ -64,15 +62,12 @@ const ConcessionScreen = ({ navigation }) => {
         style={styles.menuList}
       />
 
-      <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('AddItemScreen', { onAddItem: handleAddItem })}
+      >
         <Text style={styles.buttonText}>Add Item</Text>
       </TouchableOpacity>
-
-      <AddItemModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onAddItem={handleAddItem}
-      />
     </View>
   );
 };
@@ -82,12 +77,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#2c2c2c',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 20,
   },
   menuList: {
     marginBottom: 20,
