@@ -42,7 +42,7 @@ const ConcessionScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.viewButton}
-          onPress={() => navigation.navigate('ViewMenuItem', { item })} // Navigate to ViewMenuItemScreen
+          onPress={() => navigation.navigate('ViewMenuItem', { item })} 
         >
           <Text style={styles.buttonText}>View</Text>
         </TouchableOpacity>
@@ -58,7 +58,7 @@ const ConcessionScreen = ({ navigation }) => {
       <FlatList
         data={menuItems}
         renderItem={renderMenuItem}
-        keyExtractor={(item, index) => index.toString()} // Use index as key
+        keyExtractor={(item, index) => index.toString()} 
         style={styles.menuList}
       />
 

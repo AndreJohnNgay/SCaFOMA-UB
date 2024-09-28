@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Image } from 'react-native';
 
 const AddItemSizesPricesScreen = ({ navigation, route }) => {
   const { newItem, onAddItem } = route.params;
@@ -21,15 +21,14 @@ const AddItemSizesPricesScreen = ({ navigation, route }) => {
     setItemSizes(newSizes);
   };
 
-  const handleSubmit = () => {
+  const handleNext = () => {
     const filteredSizes = itemSizes.filter(item => item.size && item.price); 
     const updatedItem = {
       ...newItem,
       sizes: filteredSizes,
     };
 
-    onAddItem(updatedItem);
-    navigation.goBack(); 
+    navigation.navigate('AddItemVariations', { updatedItem, onAddItem });
   };
 
   const renderSizeItem = ({ item, index }) => (
@@ -73,8 +72,8 @@ const AddItemSizesPricesScreen = ({ navigation, route }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
+        <TouchableOpacity style={styles.submitButton} onPress={handleNext}>
+          <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
@@ -93,6 +92,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 20,
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 24,
@@ -137,8 +137,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    marginBottom: 15,
+    marginVertical: 15,
   },
+
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

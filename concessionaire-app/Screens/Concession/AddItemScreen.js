@@ -36,7 +36,11 @@ const AddItemScreen = ({ navigation, route }) => {
         <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
           <Text style={styles.buttonText}>{image ? 'Change Image' : 'Select Image'}</Text>
         </TouchableOpacity>
-        {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
+
+        <Image
+          source={{ uri: image || 'https://via.placeholder.com/100x100.png?text=No+Image' }}
+          style={styles.imagePreview}
+        />
 
         <TextInput
           placeholder="Item Name"
@@ -93,6 +97,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 5,
     marginBottom: 15,
+    backgroundColor: '#555', 
   },
   buttonContainer: {
     flexDirection: 'row',

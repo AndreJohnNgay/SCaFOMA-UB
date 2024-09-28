@@ -16,6 +16,8 @@ import ViewOrderScreen from './Screens/Orders/ViewOrderScreen';
 import ViewMenuItemScreen from './Screens/Concession/ViewMenuItemScreen';
 import AddItemScreen from './Screens/Concession/AddItemScreen';
 import AddItemSizesPricesScreen from './Screens/Concession/AddItemSizesPricesScreen';
+import AddItemVariationsScreen from './Screens/Concession/AddItemVariationsScreen';
+import AddItemAddOnsScreen from './Screens/Concession/AddItemAddOnsScreen';
 
 
 
@@ -83,6 +85,8 @@ const App = () => {
         <Stack.Screen name="ViewMenuItem" component={ViewMenuItemScreen} />
         <Stack.Screen name="AddItemScreen" component={AddItemScreen} />
         <Stack.Screen name="AddItemSizesPrices" component={AddItemSizesPricesScreen} />
+        <Stack.Screen name="AddItemVariations" component={AddItemVariationsScreen} />
+        <Stack.Screen name="AddItemAddOns" component={AddItemAddOnsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
