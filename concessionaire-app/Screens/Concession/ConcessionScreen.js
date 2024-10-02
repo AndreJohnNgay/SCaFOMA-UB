@@ -1,54 +1,25 @@
 import React, { useState } from 'react'
-import {
-	View,
-	Text,
-	StyleSheet,
-	FlatList,
-	TouchableOpacity
-} from 'react-native'
+import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { Text } from 'react-native-paper'
+import { useMenu } from '../../Contexts/BackendContext'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const ConcessionScreen = ({ navigation }) => {
-	const [menuItems, setMenuItems] = useState([
-		{
-			name: 'Hot Dog',
-			sizes: [
-				{ size: 'Regular', price: '50' },
-				{ size: 'Large', price: '70' }
-			],
-			image: null
-		},
-		{
-			name: 'Burger',
-			sizes: [{ size: 'Large', price: '120' }],
-			image: null
-		},
-		{
-			name: 'Fries',
-			sizes: [
-				{ size: 'Small', price: '30' },
-				{ size: 'Medium', price: '40' },
-				{ size: 'Large', price: '50' }
-			],
-			image: null
-		},
-		{
-			name: 'Coke',
-			sizes: [
-				{ size: 'Small', price: '30' },
-				{ size: 'Medium', price: '40' },
-				{ size: 'Large', price: '50' }
-			],
-			image: null
-		}
-	])
+	const Menu = useMenu()
+	const menuItems = Menu.menuItems
 
-	const handleAddItem = (newItem) => {
-		setMenuItems((prevItems) => [...prevItems, newItem])
+	const handleAddItem = () => {
+		navigation.navigate('AddItemScreen')
 	}
 
 	const renderMenuItem = ({ item }) => (
 		<View style={styles.menuItemContainer}>
-			<Text style={styles.menuItemName}>{item.name}</Text>
+			<Text
+				variant="titleLarge"
+				style={styles.menuItemName}>
+				{item.name}
+			</Text>
+
 			{item.sizes.map((size, index) => (
 				<Text
 					key={index}
@@ -56,12 +27,14 @@ const ConcessionScreen = ({ navigation }) => {
 					{size.size}: ₱{size.price}
 				</Text>
 			))}
+
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity
 					style={styles.viewButton}
 					onPress={() => navigation.navigate('ViewMenuItem', { item })}>
 					<Text style={styles.buttonText}>View</Text>
 				</TouchableOpacity>
+
 				<TouchableOpacity style={styles.removeButton}>
 					<Text style={styles.buttonText}>Remove</Text>
 				</TouchableOpacity>
@@ -70,22 +43,20 @@ const ConcessionScreen = ({ navigation }) => {
 	)
 
 	return (
-		<View style={styles.screenContainer}>
+		<SafeAreaView style={styles.screenContainer}>
 			<FlatList
+				style={styles.menuList}
 				data={menuItems}
 				renderItem={renderMenuItem}
 				keyExtractor={(item, index) => index.toString()}
-				style={styles.menuList}
 			/>
 
 			<TouchableOpacity
 				style={styles.addButton}
-				onPress={() =>
-					navigation.navigate('AddItemScreen', { onAddItem: handleAddItem })
-				}>
+				onPress={handleAddItem}>
 				<Text style={styles.buttonText}>Add Item</Text>
 			</TouchableOpacity>
-		</View>
+		</SafeAreaView>
 	)
 }
 
@@ -106,7 +77,6 @@ const styles = StyleSheet.create({
 	},
 	menuItemName: {
 		color: '#fff',
-		fontSize: 18,
 		fontWeight: 'bold'
 	},
 	menuItemPrice: {
