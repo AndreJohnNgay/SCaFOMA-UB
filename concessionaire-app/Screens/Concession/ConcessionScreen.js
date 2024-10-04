@@ -5,8 +5,7 @@ import { useMenu } from '../../Contexts/BackendContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const ConcessionScreen = ({ navigation }) => {
-	const Menu = useMenu()
-	const menuItems = Menu.menuItems
+	const { menuItems } = useMenu()
 
 	const handleAddItem = () => {
 		navigation.navigate('AddItem')

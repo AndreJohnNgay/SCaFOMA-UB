@@ -11,12 +11,12 @@ import {
 import { useMenu } from '../../Contexts/BackendContext'
 
 const AddItemScreen = ({ navigation }) => {
-	const Menu = useMenu()
+	const { itemName, setItemName, phImage, image, pickImage } = useMenu()
 
 	const handleNext = () => {
 		const newItem = {
-			name: Menu.itemName,
-			image: Menu.image,
+			name: itemName,
+			image: image,
 		}
 
 		navigation.navigate('AddItemSizesPrices', {
@@ -37,23 +37,23 @@ const AddItemScreen = ({ navigation }) => {
 
 				<TouchableOpacity
 					style={styles.imageButton}
-					onPress={Menu.pickImage}>
+					onPress={pickImage}>
 					<Text style={styles.buttonText}>
-						{Menu.image ? 'Change Image' : 'Select Image'}
+						{image ? 'Change Image' : 'Select Image'}
 					</Text>
 				</TouchableOpacity>
 
 				<Image
 					source={{
-						uri: Menu.image || Menu.phImage,
+						uri: image || phImage,
 					}}
 					style={styles.imagePreview}
 				/>
 
 				<TextInput
 					placeholder="Item Name"
-					value={Menu.itemName}
-					onChangeText={Menu.setItemName}
+					value={itemName}
+					onChangeText={setItemName}
 					style={styles.input}
 				/>
 			</View>
