@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import {
 	View,
 	Text,
@@ -14,14 +14,7 @@ const AddItemScreen = ({ navigation }) => {
 	const { itemName, setItemName, phImage, image, pickImage } = useMenu()
 
 	const handleNext = () => {
-		const newItem = {
-			name: itemName,
-			image: image,
-		}
-
-		navigation.navigate('AddItemSizesPrices', {
-			newItem,
-		})
+		navigation.navigate('AddItemSizesPrices')
 	}
 
 	const handleCancel = () => {

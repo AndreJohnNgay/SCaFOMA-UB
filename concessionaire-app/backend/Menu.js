@@ -34,12 +34,20 @@ const menuTemp = [
 		image: null,
 	},
 ]
+
+const defItemName = ''
+const defImage = null
 const phImage = 'https://via.placeholder.com/100x100.png?text=No+Image'
 
 export const Menu = () => {
 	const [menuItems, setMenuItems] = useState(menuTemp)
-	const [itemName, setItemName] = useState('')
-	const [image, setImage] = useState(null)
+	const [itemName, setItemName] = useState(defItemName)
+	const [image, setImage] = useState(defImage)
+
+	const resetMenuConfig = () => {
+		setItemName(defItemName)
+		setImage(defImage)
+	}
 
 	const addItem = (newItem) => {
 		setMenuItems((prevItems) => [...prevItems, newItem])
@@ -59,6 +67,7 @@ export const Menu = () => {
 	}
 
 	return {
+		resetMenuConfig: () => resetMenuConfig(),
 		menuItems,
 		addItem: (newItem) => addItem(newItem),
 		itemName,
