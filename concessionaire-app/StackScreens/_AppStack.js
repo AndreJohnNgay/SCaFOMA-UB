@@ -7,11 +7,11 @@ import { useAuth } from '../Contexts/BackendContext'
 const Stack = createNativeStackNavigator()
 
 export default function AppStack() {
-	const Auth = useAuth()
+	const { isLoggedIn } = useAuth()
 
 	return (
 		<Stack.Navigator screenOptions={{ headerShown: false }}>
-			{Auth.isLoggedIn ? (
+			{isLoggedIn ? (
 				<>
 					<Stack.Screen
 						name="Main"

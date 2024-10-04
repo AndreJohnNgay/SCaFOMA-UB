@@ -4,15 +4,15 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
-	StyleSheet
+	StyleSheet,
 } from 'react-native'
 import { useAuth } from '../../Contexts/BackendContext'
 
 const LoginScreen = ({ navigation }) => {
-	const Auth = useAuth()
+	const { login } = useAuth()
 
 	const handleLogin = () => {
-		Auth.login()
+		login()
 	}
 
 	const handleForgotPassword = () => {
@@ -56,42 +56,42 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		backgroundColor: '#2c2c2c',
-		padding: 20
+		padding: 20,
 	},
 	title: {
 		fontSize: 28,
 		fontWeight: 'bold',
 		color: '#fff',
 		marginBottom: 40,
-		textAlign: 'center'
+		textAlign: 'center',
 	},
 	input: {
 		backgroundColor: '#444',
 		color: '#fff',
 		borderRadius: 8,
 		padding: 15,
-		marginBottom: 20
+		marginBottom: 20,
 	},
 	button: {
 		backgroundColor: 'rgb(174,12,46)',
 		padding: 15,
 		borderRadius: 8,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	buttonText: {
 		color: '#fff',
 		fontSize: 18,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
 	},
 	linkButton: {
 		marginTop: 20,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	linkText: {
 		color: 'rgb(174,12,46)',
 		fontSize: 16,
-		textDecorationLine: 'underline'
-	}
+		textDecorationLine: 'underline',
+	},
 })
 
 export default LoginScreen
