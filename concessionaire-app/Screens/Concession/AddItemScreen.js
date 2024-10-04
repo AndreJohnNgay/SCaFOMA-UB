@@ -14,12 +14,9 @@ const AddItemScreen = ({ navigation }) => {
 	const Menu = useMenu()
 
 	const handleNext = () => {
-		if (!Menu.image) {
-			setImage(Menu.phImage)
-		}
 		const newItem = {
-			name: itemName,
-			image: image,
+			name: Menu.itemName,
+			image: Menu.image,
 		}
 
 		navigation.navigate('AddItemSizesPrices', {
