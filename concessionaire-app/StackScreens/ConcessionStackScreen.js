@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ConcessionScreen from '../Screens/Concession/ConcessionScreen'
-import AddItemAddOnsScreen from '../Screens/Concession/AddItemAddOnsScreen'
-import AddItemScreen from '../Screens/Concession/AddItemScreen'
-import AddItemSizesPricesScreen from '../Screens/Concession/AddItemSizesPricesScreen'
-import AddItemVariationsScreen from '../Screens/Concession/AddItemVariationsScreen'
+import AddItemAddOnsScreen from '../Screens/Concession/AddItem/AddItemAddOnsScreen'
+import AddItemScreen from '../Screens/Concession/AddItem/AddItemScreen'
+import AddItemSizesPricesScreen from '../Screens/Concession/AddItem/AddItemSizesPricesScreen'
+import AddItemVariationsScreen from '../Screens/Concession/AddItem/AddItemVariationsScreen'
 import ViewMenuItemScreen from '../Screens/Concession/ViewMenuItemScreen'
 
 const ConcessionStack = createNativeStackNavigator()

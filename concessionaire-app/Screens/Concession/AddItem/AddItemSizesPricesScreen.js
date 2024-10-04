@@ -9,10 +9,10 @@ import {
 	KeyboardAvoidingView,
 	Image,
 } from 'react-native'
+import { useMenu } from '../../../Contexts/BackendContext'
 
 const AddItemSizesPricesScreen = ({ navigation, route }) => {
-	const { newItem } = route.params
-	const [itemSizes, setItemSizes] = useState([{ size: '', price: '' }])
+	const { itemSizes, setItemSizes } = useMenu()
 
 	const handleAddSize = () => {
 		setItemSizes([...itemSizes, { size: '', price: '' }])

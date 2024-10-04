@@ -8,7 +8,7 @@ import {
 	Image,
 	KeyboardAvoidingView,
 } from 'react-native'
-import { useMenu } from '../../Contexts/BackendContext'
+import { useMenu } from '../../../Contexts/BackendContext'
 
 const AddItemScreen = ({ navigation }) => {
 	const { itemName, setItemName, phImage, image, pickImage } = useMenu()
