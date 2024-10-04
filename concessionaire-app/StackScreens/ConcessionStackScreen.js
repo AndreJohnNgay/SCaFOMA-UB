@@ -12,27 +12,27 @@ export default function ConcessionStackScreen() {
 	return (
 		<ConcessionStack.Navigator screenOptions={screenOptions}>
 			<ConcessionStack.Screen
-				name="ConcessionScreen"
+				name="Concession"
 				component={ConcessionScreen}
 			/>
 			<ConcessionStack.Screen
-				name="AddItemAddOnsScreen"
+				name="AddItemAddOns"
 				component={AddItemAddOnsScreen}
 			/>
 			<ConcessionStack.Screen
-				name="AddItemScreen"
+				name="AddItem"
 				component={AddItemScreen}
 			/>
 			<ConcessionStack.Screen
-				name="AddItemSizesPricesScreen"
+				name="AddItemSizesPrices"
 				component={AddItemSizesPricesScreen}
 			/>
 			<ConcessionStack.Screen
-				name="AddItemVariationsScreen"
+				name="AddItemVariations"
 				component={AddItemVariationsScreen}
 			/>
 			<ConcessionStack.Screen
-				name="ViewMenuItemScreen"
+				name="ViewMenuItem"
 				component={ViewMenuItemScreen}
 			/>
 		</ConcessionStack.Navigator>
@@ -40,5 +40,5 @@ export default function ConcessionStackScreen() {
 }
 
 const screenOptions = {
-	headerShown: false
+	headerShown: false,
 }

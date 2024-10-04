@@ -9,9 +9,9 @@ const ConcessionScreen = ({ navigation }) => {
 	const menuItems = Menu.menuItems
 
 	const handleAddItem = () => {
-		navigation.navigate('AddItemScreen')
+		navigation.navigate('AddItem')
 	}
-
+	// hi
 	const renderMenuItem = ({ item }) => (
 		<View style={styles.menuItemContainer}>
 			<Text
@@ -41,7 +41,6 @@ const ConcessionScreen = ({ navigation }) => {
 			</View>
 		</View>
 	)
-
 	return (
 		<SafeAreaView style={styles.screenContainer}>
 			<FlatList
@@ -64,55 +63,55 @@ const styles = StyleSheet.create({
 	screenContainer: {
 		flex: 1,
 		padding: 20,
-		backgroundColor: '#2c2c2c'
+		backgroundColor: '#2c2c2c',
 	},
 	menuList: {
-		marginBottom: 20
+		marginBottom: 20,
 	},
 	menuItemContainer: {
 		backgroundColor: '#444',
 		padding: 15,
 		borderRadius: 8,
-		marginBottom: 10
+		marginBottom: 10,
 	},
 	menuItemName: {
 		color: '#fff',
-		fontWeight: 'bold'
+		fontWeight: 'bold',
 	},
 	menuItemPrice: {
 		color: '#fff',
-		fontSize: 16
+		fontSize: 16,
 	},
 	buttonContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		marginTop: 10
+		marginTop: 10,
 	},
 	viewButton: {
 		backgroundColor: 'rgb(174,12,46)',
 		padding: 10,
 		borderRadius: 5,
 		flex: 1,
-		marginRight: 5
+		marginRight: 5,
 	},
 	removeButton: {
 		backgroundColor: 'red',
 		padding: 10,
 		borderRadius: 5,
 		flex: 1,
-		marginLeft: 5
+		marginLeft: 5,
 	},
 	addButton: {
 		backgroundColor: 'rgb(174,12,46)',
 		padding: 10,
 		borderRadius: 5,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	buttonText: {
 		color: '#fff',
 		fontWeight: 'bold',
-		textAlign: 'center'
-	}
+		textAlign: 'center',
+	},
 })
 
 export default ConcessionScreen

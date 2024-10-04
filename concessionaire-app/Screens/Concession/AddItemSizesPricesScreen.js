@@ -37,7 +37,7 @@ const AddItemSizesPricesScreen = ({ navigation, route }) => {
 			sizes: filteredSizes,
 		}
 
-		navigation.navigate('AddItemVariations', { updatedItem, onAddItem })
+		navigation.navigate('AddItemVariations', { updatedItem })
 	}
 
 	const renderSizeItem = ({ item, index }) => (

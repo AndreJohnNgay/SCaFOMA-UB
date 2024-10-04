@@ -8,33 +8,14 @@ import {
 	Image,
 	KeyboardAvoidingView,
 } from 'react-native'
-import * as ImagePicker from 'expo-image-picker'
 import { useMenu } from '../../Contexts/BackendContext'
 
 const AddItemScreen = ({ navigation }) => {
 	const Menu = useMenu()
-	const phImage = Menu.phImage
-	const [itemName, setItemName] = useState('')
-	const [image, setImage] = useState(null)
-
-	const pickImage = async () => {
-		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: true,
-			aspect: [4, 3],
-			quality: 1,
-		})
-
-		if (!result.canceled) {
-			setImage(result.assets[0].uri)
-		} else {
-			alert('no image selected')
-		}
-	}
 
 	const handleNext = () => {
-		if (!image) {
-			setImage(phImage)
+		if (!Menu.image) {
+			setImage(Menu.phImage)
 		}
 		const newItem = {
 			name: itemName,
@@ -46,6 +27,10 @@ const AddItemScreen = ({ navigation }) => {
 		})
 	}
 
+	const handleCancel = () => {
+		navigation.goBack()
+	}
+
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
@@ -55,23 +40,23 @@ const AddItemScreen = ({ navigation }) => {
 
 				<TouchableOpacity
 					style={styles.imageButton}
-					onPress={pickImage}>
+					onPress={Menu.pickImage}>
 					<Text style={styles.buttonText}>
-						{image ? 'Change Image' : 'Select Image'}
+						{Menu.image ? 'Change Image' : 'Select Image'}
 					</Text>
 				</TouchableOpacity>
 
 				<Image
 					source={{
-						uri: image || phImage,
+						uri: Menu.image || Menu.phImage,
 					}}
 					style={styles.imagePreview}
 				/>
 
 				<TextInput
 					placeholder="Item Name"
-					value={itemName}
-					onChangeText={setItemName}
+					value={Menu.itemName}
+					onChangeText={Menu.setItemName}
 					style={styles.input}
 				/>
 			</View>
@@ -85,7 +70,7 @@ const AddItemScreen = ({ navigation }) => {
 
 				<TouchableOpacity
 					style={styles.closeButton}
-					onPress={() => navigation.goBack()}>
+					onPress={handleCancel}>
 					<Text style={styles.buttonText}>Cancel</Text>
 				</TouchableOpacity>
 			</View>
