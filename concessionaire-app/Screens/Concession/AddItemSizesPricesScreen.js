@@ -7,11 +7,11 @@ import {
 	TouchableOpacity,
 	FlatList,
 	KeyboardAvoidingView,
-	Image
+	Image,
 } from 'react-native'
 
 const AddItemSizesPricesScreen = ({ navigation, route }) => {
-	const { newItem, onAddItem } = route.params
+	const { newItem } = route.params
 	const [itemSizes, setItemSizes] = useState([{ size: '', price: '' }])
 
 	const handleAddSize = () => {
@@ -34,7 +34,7 @@ const AddItemSizesPricesScreen = ({ navigation, route }) => {
 		const filteredSizes = itemSizes.filter((item) => item.size && item.price)
 		const updatedItem = {
 			...newItem,
-			sizes: filteredSizes
+			sizes: filteredSizes,
 		}
 
 		navigation.navigate('AddItemVariations', { updatedItem, onAddItem })
@@ -111,29 +111,29 @@ const AddItemSizesPricesScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#2c2c2c'
+		backgroundColor: '#2c2c2c',
 	},
 	content: {
 		flex: 1,
 		padding: 20,
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
 	},
 	title: {
 		fontSize: 24,
 		fontWeight: 'bold',
 		color: '#fff',
-		marginBottom: 20
+		marginBottom: 20,
 	},
 	sizesTitle: {
 		fontSize: 18,
 		fontWeight: 'bold',
 		color: '#fff',
-		marginBottom: 10
+		marginBottom: 10,
 	},
 	sizeContainer: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginBottom: 15
+		marginBottom: 15,
 	},
 	sizeInput: {
 		backgroundColor: '#444',
@@ -141,34 +141,34 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 5,
 		flex: 1,
-		marginRight: 5
+		marginRight: 5,
 	},
 	priceInput: {
 		backgroundColor: '#444',
 		color: '#fff',
 		padding: 10,
 		borderRadius: 5,
-		width: '30%'
+		width: '30%',
 	},
 	imagePreview: {
 		width: 100,
 		height: 100,
 		borderRadius: 5,
-		marginBottom: 15
+		marginBottom: 15,
 	},
 	addSizeButton: {
 		backgroundColor: 'rgb(174,12,46)',
 		padding: 10,
 		borderRadius: 5,
 		alignItems: 'center',
-		marginVertical: 15
+		marginVertical: 15,
 	},
 
 	buttonContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		padding: 20,
-		backgroundColor: '#2c2c2c'
+		backgroundColor: '#2c2c2c',
 	},
 	submitButton: {
 		backgroundColor: 'rgb(174,12,46)',
@@ -176,20 +176,20 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		flex: 1,
 		marginRight: 10,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	closeButton: {
 		backgroundColor: 'red',
 		padding: 10,
 		borderRadius: 5,
 		flex: 1,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	buttonText: {
 		color: '#fff',
 		fontWeight: 'bold',
-		textAlign: 'center'
-	}
+		textAlign: 'center',
+	},
 })
 
 export default AddItemSizesPricesScreen

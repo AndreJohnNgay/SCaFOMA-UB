@@ -2,12 +2,17 @@ import React, { createContext, useContext } from 'react'
 import { Auth } from '../backend/Auth'
 import { Menu } from '../backend/Menu'
 
+/*
+	create function modules in backend and import the object they return here
+*/
+
 const BackendContext = createContext()
 
 export const BackendProvider = ({ children }) => {
+	// add the imported module here
 	const Backend = {
 		Auth: Auth(),
-		Menu: Menu()
+		Menu: Menu(),
 	}
 
 	return (
@@ -17,6 +22,7 @@ export const BackendProvider = ({ children }) => {
 	)
 }
 
+// functions they use for better readability when using
 export const useAuth = () => {
 	return useContext(BackendContext).Auth
 }
