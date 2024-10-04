@@ -6,7 +6,6 @@ import {
 	TextInput,
 	TouchableOpacity,
 	Image,
-	KeyboardAvoidingView,
 } from 'react-native'
 import { useMenu } from '../../../Contexts/BackendContext'
 
@@ -22,9 +21,7 @@ const AddItemScreen = ({ navigation }) => {
 	}
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior="padding">
+		<View style={styles.container}>
 			<View style={styles.content}>
 				<Text style={styles.title}>Add New Menu Item</Text>
 
@@ -64,7 +61,7 @@ const AddItemScreen = ({ navigation }) => {
 					<Text style={styles.buttonText}>Cancel</Text>
 				</TouchableOpacity>
 			</View>
-		</KeyboardAvoidingView>
+		</View>
 	)
 }
 

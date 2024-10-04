@@ -5,17 +5,26 @@ import {
 	StyleSheet,
 	TextInput,
 	TouchableOpacity,
-	FlatList,
 	KeyboardAvoidingView,
-	Image,
+	Platform,
 } from 'react-native'
+import {
+	KeyboardAwareFlatList,
+	KeyboardAwareScrollView,
+} from 'react-native-keyboard-aware-scroll-view'
 import { useMenu } from '../../../Contexts/BackendContext'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
-const AddItemSizesPricesScreen = ({ navigation, route }) => {
-	const { itemSizes, setItemSizes } = useMenu()
+const AddItemSizesPricesScreen = ({ navigation }) => {
+	const { itemName, itemSizes, setItemSizes } = useMenu()
 
 	const handleAddSize = () => {
 		setItemSizes([...itemSizes, { size: '', price: '' }])
+	}
+
+	const handleRemoveSize = (index) => {
+		const newSizes = itemSizes.filter((_, i) => i !== index)
+		setItemSizes(newSizes)
 	}
 
 	const handleSizeChange = (index, value) => {
@@ -32,12 +41,9 @@ const AddItemSizesPricesScreen = ({ navigation, route }) => {
 
 	const handleNext = () => {
 		const filteredSizes = itemSizes.filter((item) => item.size && item.price)
-		const updatedItem = {
-			...newItem,
-			sizes: filteredSizes,
-		}
+		setItemSizes(filteredSizes)
 
-		navigation.navigate('AddItemVariations', { updatedItem })
+		navigation.navigate('AddItemVariations')
 	}
 
 	const renderSizeItem = ({ item, index }) => (
@@ -57,31 +63,29 @@ const AddItemSizesPricesScreen = ({ navigation, route }) => {
 				keyboardType="numeric"
 				style={styles.priceInput}
 			/>
+			<TouchableOpacity
+				style={styles.addSizeButton}
+				onPress={() => handleRemoveSize(index)}>
+				<Ionicons
+					name="remove-circle-outline"
+					size={24}
+					color="black"
+				/>
+			</TouchableOpacity>
 		</View>
 	)
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior="padding">
+		<View style={styles.container}>
 			<View style={styles.content}>
-				<Text style={styles.title}>
-					Add Sizes and Prices for {newItem.name}
-				</Text>
-				{newItem.image && (
-					<Image
-						source={{ uri: newItem.image }}
-						style={styles.imagePreview}
-					/>
-				)}
-
+				<Text style={styles.title}>Add Sizes and Prices for {itemName}</Text>
 				<Text style={styles.sizesTitle}>Sizes and Prices:</Text>
 
-				<FlatList
+				<KeyboardAwareFlatList
 					data={itemSizes}
 					renderItem={renderSizeItem}
-					keyExtractor={(item, index) => index.toString()}
-					style={styles.sizeList}
+					keyExtractor={(_, index) => index.toString()}
+					removeClippedSubviews={false}
 				/>
 
 				<TouchableOpacity
@@ -104,7 +108,7 @@ const AddItemSizesPricesScreen = ({ navigation, route }) => {
 					<Text style={styles.buttonText}>Back</Text>
 				</TouchableOpacity>
 			</View>
-		</KeyboardAvoidingView>
+		</View>
 	)
 }
 
@@ -149,12 +153,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 5,
 		width: '30%',
-	},
-	imagePreview: {
-		width: 100,
-		height: 100,
-		borderRadius: 5,
-		marginBottom: 15,
+		marginRight: 5,
 	},
 	addSizeButton: {
 		backgroundColor: 'rgb(174,12,46)',
@@ -189,6 +188,10 @@ const styles = StyleSheet.create({
 		color: '#fff',
 		fontWeight: 'bold',
 		textAlign: 'center',
+	},
+	removeButton: {
+		color: '#fff',
+		padding: 10,
 	},
 })
 
