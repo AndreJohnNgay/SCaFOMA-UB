@@ -65,6 +65,7 @@ export const Menu = () => {
 		setItemName: (name) => setItemName(name),
 		phImage,
 		image,
+		setImage: (image) => setImage(image),
 		pickImage,
 	}
 }
