@@ -15,7 +15,7 @@ import {
 import { useMenu } from '../../../Contexts/BackendContext'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-const AddItemSizesPricesScreen = ({ navigation }) => {
+const AddItemSizesPricesScreen = ({ navigation, route }) => {
 	const { itemName, itemSizes, setItemSizes } = useMenu()
 
 	const handleAddSize = () => {
@@ -76,7 +76,9 @@ const AddItemSizesPricesScreen = ({ navigation }) => {
 	)
 
 	return (
-		<View style={styles.container}>
+		<KeyboardAvoidingView
+			style={styles.container}
+			behavior={Platform.OS === 'ios' ? 'padding' : 'min-height'}>
 			<View style={styles.content}>
 				<Text style={styles.title}>Add Sizes and Prices for {itemName}</Text>
 				<Text style={styles.sizesTitle}>Sizes and Prices:</Text>
@@ -108,7 +110,7 @@ const AddItemSizesPricesScreen = ({ navigation }) => {
 					<Text style={styles.buttonText}>Back</Text>
 				</TouchableOpacity>
 			</View>
-		</View>
+		</KeyboardAvoidingView>
 	)
 }
 
