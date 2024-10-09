@@ -72,6 +72,7 @@ export const Menu = () => {
 	return {
 		resetMenuConfig: () => resetMenuConfig(),
 		menuItems,
+		setMenuItems: (menuItems) => setMenuItems(menuItems),
 		addItem: (newItem) => addItem(newItem),
 		itemName,
 		setItemName: (name) => setItemName(name),

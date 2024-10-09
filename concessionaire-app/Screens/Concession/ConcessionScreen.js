@@ -1,18 +1,53 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import React, { useState, useCallback } from 'react'
+import {
+	View,
+	StyleSheet,
+	FlatList,
+	TouchableOpacity,
+	Alert,
+} from 'react-native'
 import { Text } from 'react-native-paper'
 import { useMenu } from '../../Contexts/BackendContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const ConcessionScreen = ({ navigation }) => {
-	const { resetMenuConfig, menuItems } = useMenu()
+	const { resetMenuConfig, menuItems, setMenuItems } = useMenu()
 
-	const handleAddItem = () => {
-		resetMenuConfig()
+	const handleAddItem = useCallback(() => {
+		try {
+			resetMenuConfig()
+		} catch (error) {
+			console.error(`Error resetting menu configuration: ${error}`)
+		}
 		navigation.navigate('AddItem')
-	}
+	}, [navigation])
 
-	const renderMenuItem = ({ item }) => (
+	const handleRemoveItem = useCallback(
+		(item, index) => {
+			// Implement confirmation dialog before removing the item
+			Alert.alert(
+				'Confirm Deletion',
+				`Are you sure you want to remove ${item.name}?`,
+				[
+					{
+						text: 'Cancel',
+						style: 'cancel',
+					},
+					{
+						text: 'Remove',
+						onPress: () => {
+							const updatedMenuItems = menuItems.filter((_, i) => i !== index)
+							setMenuItems(updatedMenuItems)
+						},
+					},
+				],
+				{ cancelable: true }
+			)
+		},
+		[menuItems, setMenuItems]
+	)
+
+	const renderMenuItem = ({ item, index }) => (
 		<View style={styles.menuItemContainer}>
 			<Text
 				variant="titleLarge"
@@ -35,19 +70,22 @@ const ConcessionScreen = ({ navigation }) => {
 					<Text style={styles.buttonText}>View</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.removeButton}>
+				<TouchableOpacity
+					style={styles.removeButton}
+					onPress={() => handleRemoveItem(item, index)}>
 					<Text style={styles.buttonText}>Remove</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
 	)
+
 	return (
 		<SafeAreaView style={styles.screenContainer}>
 			<FlatList
 				style={styles.menuList}
 				data={menuItems}
 				renderItem={renderMenuItem}
-				keyExtractor={(item, index) => index.toString()}
+				keyExtractor={(_, index) => index.toString()}
 			/>
 
 			<TouchableOpacity
