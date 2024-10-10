@@ -110,6 +110,25 @@ export const Menu = () => {
 		setVariations((prevVariations) => [...prevVariations, newVariation])
 	}
 
+	const removeVariation = (index) => {
+		const updatedVariations = variations.filter((_, i) => i !== index)
+		setVariations(updatedVariations)
+	}
+
+	const removeVariationSize = (variationIndex, sizeIndex) => {
+		const updatedVariations = [...variations]
+		updatedVariations[variationIndex].sizes = updatedVariations[
+			variationIndex
+		].sizes.filter((_, i) => i !== sizeIndex)
+		setVariations(updatedVariations)
+	}
+
+	const addSizeToVariation = (variationIndex) => {
+		const updatedVariations = [...variations]
+		updatedVariations[variationIndex].sizes.push({ size: '', price: '' })
+		setVariations(updatedVariations)
+	}
+
 	const handleVariationChange = (index, value) => {
 		const updatedVariations = [...variations]
 		updatedVariations[index].variation = value
@@ -145,6 +164,9 @@ export const Menu = () => {
 		variations,
 		initEmptyVariations,
 		addNewVariation,
+		removeVariation,
+		addSizeToVariation,
+		removeVariationSize,
 		handleVariationChange,
 		handleSizeChange,
 		handlePriceChange,

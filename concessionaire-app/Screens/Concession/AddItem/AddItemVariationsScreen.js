@@ -15,6 +15,9 @@ const AddItemVariationsScreen = ({ navigation }) => {
 		itemName,
 		variations,
 		addNewVariation,
+		removeVariation,
+		addSizeToVariation,
+		removeVariationSize,
 		handleVariationChange,
 		handleSizeChange,
 		handlePriceChange,
@@ -22,8 +25,6 @@ const AddItemVariationsScreen = ({ navigation }) => {
 	} = useMenuBackend()
 
 	initEmptyVariations()
-
-	handleRemoveButton
 
 	const handleNext = () => {
 		navigation.navigate('AddItemAddOns')
@@ -48,6 +49,10 @@ const AddItemVariationsScreen = ({ navigation }) => {
 				keyboardType="numeric"
 				style={styles.priceInput}
 			/>
+			<TouchableOpacity
+				onPress={() => removeVariationSize(variationIndex, index)}>
+				<Text style={styles.removeVarSizeButton}>R</Text>
+			</TouchableOpacity>
 		</View>
 	)
 
@@ -68,6 +73,14 @@ const AddItemVariationsScreen = ({ navigation }) => {
 				keyExtractor={(item, index) => index.toString()}
 				style={styles.sizePriceList}
 			/>
+
+			<TouchableOpacity onPress={() => addSizeToVariation(index)}>
+				<Text style={styles.addSizeButton}>Add Size</Text>
+			</TouchableOpacity>
+
+			<TouchableOpacity onPress={() => removeVariation(index)}>
+				<Text style={styles.removeButton}>Remove Variation</Text>
+			</TouchableOpacity>
 		</View>
 	)
 
@@ -187,6 +200,24 @@ const styles = StyleSheet.create({
 		color: '#fff',
 		fontWeight: 'bold',
 		textAlign: 'center',
+	},
+	addSizeButton: {
+		color: 'green',
+		fontWeight: 'bold',
+		textAlign: 'center',
+		marginTop: 10,
+	},
+	removeVarSizeButton: {
+		color: 'red',
+		fontWeight: 'bold',
+		textAlign: 'center',
+		marginTop: 10,
+	},
+	removeButton: {
+		color: 'red',
+		fontWeight: 'bold',
+		textAlign: 'center',
+		marginTop: 10,
 	},
 })
 
