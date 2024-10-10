@@ -7,11 +7,11 @@ import {
 	Alert,
 } from 'react-native'
 import { Text } from 'react-native-paper'
-import { useMenu } from '../../Contexts/BackendContext'
+import { useMenuBackend } from '../../Contexts/BackendContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const ConcessionScreen = ({ navigation }) => {
-	const { resetMenuConfig, menuItems, setMenuItems } = useMenu()
+	const { resetMenuConfig, menuItems, setMenuItems } = useMenuBackend()
 
 	const handleAddItem = useCallback(() => {
 		try {

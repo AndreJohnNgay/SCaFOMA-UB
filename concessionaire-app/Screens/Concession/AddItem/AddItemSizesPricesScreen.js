@@ -12,11 +12,11 @@ import {
 	KeyboardAwareFlatList,
 	KeyboardAwareScrollView,
 } from 'react-native-keyboard-aware-scroll-view'
-import { useMenu } from '../../../Contexts/BackendContext'
+import { useMenuBackend } from '../../../Contexts/BackendContext'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-const AddItemSizesPricesScreen = ({ navigation, route }) => {
-	const { itemName, itemSizes, setItemSizes } = useMenu()
+const AddItemSizesPricesScreen = ({ navigation }) => {
+	const { itemName, itemSizes, setItemSizes } = useMenuBackend()
 
 	const handleAddSize = () => {
 		setItemSizes([...itemSizes, { size: '', price: '' }])

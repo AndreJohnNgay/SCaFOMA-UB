@@ -7,10 +7,10 @@ import {
 	TouchableOpacity,
 	Image,
 } from 'react-native'
-import { useMenu } from '../../../Contexts/BackendContext'
+import { useMenuBackend } from '../../../Contexts/BackendContext'
 
 const AddItemScreen = ({ navigation }) => {
-	const { itemName, setItemName, phImage, image, pickImage } = useMenu()
+	const { itemName, setItemName, phImage, image, pickImage } = useMenuBackend()
 
 	const handleNext = () => {
 		navigation.navigate('AddItemSizesPrices')
