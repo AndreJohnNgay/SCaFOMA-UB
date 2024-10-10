@@ -8,15 +8,15 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 } from 'react-native'
-import {
-	KeyboardAwareFlatList,
-	KeyboardAwareScrollView,
-} from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 import { useMenuBackend } from '../../../Contexts/BackendContext'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
 const AddItemSizesPricesScreen = ({ navigation }) => {
-	const { itemName, itemSizes, setItemSizes } = useMenuBackend()
+	const { itemName, itemSizes, setItemSizes, reinitItemSizes } =
+		useMenuBackend()
+
+	reinitItemSizes()
 
 	const handleAddSize = () => {
 		setItemSizes([...itemSizes, { size: '', price: '' }])
@@ -76,10 +76,8 @@ const AddItemSizesPricesScreen = ({ navigation }) => {
 	)
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === 'ios' ? 'padding' : 'min-height'}>
-			<View style={styles.content}>
+		<View style={styles.container}>
+			<KeyboardAvoidingView style={styles.content}>
 				<Text style={styles.title}>Add Sizes and Prices for {itemName}</Text>
 				<Text style={styles.sizesTitle}>Sizes and Prices:</Text>
 
@@ -95,7 +93,7 @@ const AddItemSizesPricesScreen = ({ navigation }) => {
 					onPress={handleAddSize}>
 					<Text style={styles.buttonText}>Add Size</Text>
 				</TouchableOpacity>
-			</View>
+			</KeyboardAvoidingView>
 
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity
@@ -110,7 +108,7 @@ const AddItemSizesPricesScreen = ({ navigation }) => {
 					<Text style={styles.buttonText}>Back</Text>
 				</TouchableOpacity>
 			</View>
-		</KeyboardAvoidingView>
+		</View>
 	)
 }
 

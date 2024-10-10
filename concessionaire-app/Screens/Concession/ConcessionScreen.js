@@ -14,11 +14,7 @@ const ConcessionScreen = ({ navigation }) => {
 	const { resetMenuConfig, menuItems, setMenuItems } = useMenuBackend()
 
 	const handleAddItem = useCallback(() => {
-		try {
-			resetMenuConfig()
-		} catch (error) {
-			console.error(`Error resetting menu configuration: ${error}`)
-		}
+		resetMenuConfig()
 		navigation.navigate('AddItem')
 	}, [navigation])
 

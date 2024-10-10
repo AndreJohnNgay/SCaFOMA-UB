@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
 	View,
 	Text,
@@ -6,52 +6,27 @@ import {
 	TouchableOpacity,
 	FlatList,
 	StyleSheet,
-	KeyboardAvoidingView
+	KeyboardAvoidingView,
 } from 'react-native'
+import { useMenuBackend } from '../../../Contexts/BackendContext'
 
-const AddItemVariationsScreen = ({ navigation, route }) => {
-	const { updatedItem, onAddItem } = route.params
+const AddItemVariationsScreen = ({ navigation }) => {
+	const {
+		itemName,
+		variations,
+		addNewVariation,
+		handleVariationChange,
+		handleSizeChange,
+		handlePriceChange,
+		initEmptyVariations,
+	} = useMenuBackend()
 
-	const [variations, setVariations] = useState([
-		{ variation: '', sizes: updatedItem.sizes.map((size) => ({ ...size })) }
-	])
+	initEmptyVariations()
 
-	const handleAddVariation = () => {
-		setVariations([
-			...variations,
-			{ variation: '', sizes: updatedItem.sizes.map((size) => ({ ...size })) }
-		])
-	}
-
-	const handleVariationChange = (index, value) => {
-		const newVariations = [...variations]
-		newVariations[index].variation = value
-		setVariations(newVariations)
-	}
-
-	const handleSizeChange = (variationIndex, sizeIndex, value) => {
-		const newVariations = [...variations]
-		newVariations[variationIndex].sizes[sizeIndex].size = value
-		setVariations(newVariations)
-	}
-
-	const handlePriceChange = (variationIndex, sizeIndex, value) => {
-		const newVariations = [...variations]
-		newVariations[variationIndex].sizes[sizeIndex].price = value
-		setVariations(newVariations)
-	}
+	handleRemoveButton
 
 	const handleNext = () => {
-		const filteredVariations = variations.filter((item) => item.variation)
-		const updatedItemWithVariations = {
-			...updatedItem,
-			variations: filteredVariations
-		}
-
-		navigation.navigate('AddItemAddOns', {
-			updatedItem: updatedItemWithVariations,
-			onAddItem
-		})
+		navigation.navigate('AddItemAddOns')
 	}
 
 	const renderSizePriceItem = ({ item, index }, variationIndex) => (
@@ -97,22 +72,19 @@ const AddItemVariationsScreen = ({ navigation, route }) => {
 	)
 
 	return (
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior="padding">
+		<View style={styles.container}>
 			<View style={styles.content}>
-				<Text style={styles.title}>Add Variations for {updatedItem.name}</Text>
+				<Text style={styles.title}>Add Variations for {itemName}</Text>
 
 				<FlatList
 					data={variations}
 					renderItem={renderVariationItem}
 					keyExtractor={(item, index) => index.toString()}
-					style={styles.variationList}
 				/>
 
 				<TouchableOpacity
-					style={styles.addVariationButton}
-					onPress={handleAddVariation}>
+					style={styles.addNewVariationButton}
+					onPress={addNewVariation}>
 					<Text style={styles.buttonText}>Add Variation</Text>
 				</TouchableOpacity>
 			</View>
@@ -130,34 +102,34 @@ const AddItemVariationsScreen = ({ navigation, route }) => {
 					<Text style={styles.buttonText}>Back</Text>
 				</TouchableOpacity>
 			</View>
-		</KeyboardAvoidingView>
+		</View>
 	)
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#2c2c2c'
+		backgroundColor: '#2c2c2c',
 	},
 	content: {
 		flex: 1,
-		padding: 20
+		padding: 20,
 	},
 	title: {
 		fontSize: 24,
 		fontWeight: 'bold',
 		color: '#fff',
-		marginBottom: 20
+		marginBottom: 20,
 	},
 	variationContainer: {
-		marginBottom: 20
+		marginBottom: 20,
 	},
 	variationInput: {
 		backgroundColor: '#444',
 		color: '#fff',
 		padding: 10,
 		borderRadius: 5,
-		marginBottom: 10
+		marginBottom: 10,
 	},
 	sizePriceContainer: {
 		flexDirection: 'row',
@@ -166,7 +138,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#333',
 		padding: 10,
 		borderRadius: 5,
-		marginBottom: 5
+		marginBottom: 5,
 	},
 	sizeInput: {
 		backgroundColor: '#444',
@@ -174,27 +146,27 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 5,
 		flex: 1,
-		marginRight: 5
+		marginRight: 5,
 	},
 	priceInput: {
 		backgroundColor: '#444',
 		color: '#fff',
 		padding: 10,
 		borderRadius: 5,
-		width: '30%'
+		width: '30%',
 	},
-	addVariationButton: {
+	addNewVariationButton: {
 		backgroundColor: 'rgb(174,12,46)',
 		padding: 10,
 		borderRadius: 5,
 		alignItems: 'center',
-		marginBottom: 15
+		marginBottom: 15,
 	},
 	buttonContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		padding: 20,
-		backgroundColor: '#2c2c2c'
+		backgroundColor: '#2c2c2c',
 	},
 	submitButton: {
 		backgroundColor: 'rgb(174,12,46)',
@@ -202,20 +174,20 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		flex: 1,
 		marginRight: 10,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	closeButton: {
 		backgroundColor: 'red',
 		padding: 10,
 		borderRadius: 5,
 		flex: 1,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	buttonText: {
 		color: '#fff',
 		fontWeight: 'bold',
-		textAlign: 'center'
-	}
+		textAlign: 'center',
+	},
 })
 
 export default AddItemVariationsScreen
