@@ -38,7 +38,6 @@ function MainTabs() {
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      {/* <Tab.Screen name="" component={} /> */}
       <Tab.Screen name="Menu" component={MenuScreen} />
       <Tab.Screen name="Cart" component={CartScreen} />
       <Tab.Screen name="Graphs" component={GraphsScreen} />
