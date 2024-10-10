@@ -23,10 +23,10 @@ export const BackendProvider = ({ children }) => {
 }
 
 // functions they use for better readability when using
-export const useAuth = () => {
+export const useAuthBackend = () => {
 	return useContext(BackendContext).Auth
 }
 
-export const useMenu = () => {
+export const useMenuBackend = () => {
 	return useContext(BackendContext).Menu
 }
