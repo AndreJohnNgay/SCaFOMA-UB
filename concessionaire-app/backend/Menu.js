@@ -1,35 +1,37 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker'
+
+const phImage = 'https://via.placeholder.com/100x100.png?text=No+Image'
 
 const menuTemp = [
 	{
 		name: 'Hot Dog',
 		sizes: [
-			{ size: 'Regular', price: '50' },
-			{ size: 'Large', price: '70' },
+			{ size: 'Regular', price: 50 },
+			{ size: 'Large', price: 70 },
 		],
 		image: phImage,
 	},
 	{
 		name: 'Burger',
-		sizes: [{ size: 'Large', price: '120' }],
+		sizes: [{ size: 'Large', price: 120 }],
 		image: phImage,
 	},
 	{
 		name: 'Fries',
 		sizes: [
-			{ size: 'Small', price: '30' },
-			{ size: 'Medium', price: '40' },
-			{ size: 'Large', price: '50' },
+			{ size: 'Small', price: 30 },
+			{ size: 'Medium', price: 40 },
+			{ size: 'Large', price: 50 },
 		],
 		image: phImage,
 	},
 	{
 		name: 'Coke',
 		sizes: [
-			{ size: 'Small', price: '30' },
-			{ size: 'Medium', price: '40' },
-			{ size: 'Large', price: '50' },
+			{ size: 'Small', price: 30 },
+			{ size: 'Medium', price: 40 },
+			{ size: 'Large', price: 50 },
 		],
 		image: phImage,
 	},
@@ -37,7 +39,6 @@ const menuTemp = [
 
 const defItemName = ''
 const defImage = phImage
-const phImage = 'https://via.placeholder.com/100x100.png?text=No+Image'
 const defSizes = [{ size: '', price: '' }]
 
 export const Menu = () => {
@@ -45,6 +46,11 @@ export const Menu = () => {
 	const [itemName, setItemName] = useState(defItemName)
 	const [image, setImage] = useState(defImage)
 	const [itemSizes, setItemSizes] = useState(defSizes)
+
+	useEffect(() => {
+		// Code to handle side effects related to state changes
+		// E.g., logging, API calls, etc.
+	}, [menuItems])
 
 	const resetMenuConfig = () => {
 		setItemName(defItemName)

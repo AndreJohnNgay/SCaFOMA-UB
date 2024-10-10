@@ -29,13 +29,13 @@ const AddItemScreen = ({ navigation }) => {
 					style={styles.imageButton}
 					onPress={pickImage}>
 					<Text style={styles.buttonText}>
-						{image ? 'Change Image' : 'Select Image'}
+						{image == phImage ? 'Change Image' : 'Select Image'}
 					</Text>
 				</TouchableOpacity>
 
 				<Image
 					source={{
-						uri: image || phImage,
+						uri: image,
 					}}
 					style={styles.imagePreview}
 				/>
