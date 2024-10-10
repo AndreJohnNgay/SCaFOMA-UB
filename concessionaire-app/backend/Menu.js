@@ -8,12 +8,12 @@ const menuTemp = [
 			{ size: 'Regular', price: '50' },
 			{ size: 'Large', price: '70' },
 		],
-		image: null,
+		image: phImage,
 	},
 	{
 		name: 'Burger',
 		sizes: [{ size: 'Large', price: '120' }],
-		image: null,
+		image: phImage,
 	},
 	{
 		name: 'Fries',
@@ -22,7 +22,7 @@ const menuTemp = [
 			{ size: 'Medium', price: '40' },
 			{ size: 'Large', price: '50' },
 		],
-		image: null,
+		image: phImage,
 	},
 	{
 		name: 'Coke',
@@ -31,12 +31,12 @@ const menuTemp = [
 			{ size: 'Medium', price: '40' },
 			{ size: 'Large', price: '50' },
 		],
-		image: null,
+		image: phImage,
 	},
 ]
 
 const defItemName = ''
-const defImage = null
+const defImage = phImage
 const phImage = 'https://via.placeholder.com/100x100.png?text=No+Image'
 const defSizes = [{ size: '', price: '' }]
 
