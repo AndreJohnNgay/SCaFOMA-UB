@@ -6,10 +6,10 @@ import {
 	TouchableOpacity,
 	StyleSheet,
 } from 'react-native'
-import { useAuth } from '../../Contexts/BackendContext'
+import { useAuthBackend } from '../../Contexts/BackendContext'
 
 const LoginScreen = ({ navigation }) => {
-	const { login } = useAuth()
+	const { login } = useAuthBackend()
 
 	const handleLogin = () => {
 		login()
