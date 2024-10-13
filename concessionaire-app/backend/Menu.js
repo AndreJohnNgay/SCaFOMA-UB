@@ -48,35 +48,7 @@ export const Menu = () => {
 	const [image, setImage] = useState(defImage)
 	const [itemSizes, setItemSizes] = useState(defSizes)
 	const [variations, setVariations] = useState(defVariations)
-
-	useEffect(() => {
-		setVariations((prevVariations) =>
-			(prevVariations ?? []).map((variation) => ({
-				...variation,
-				sizes: variation.sizes.every((size) => !size.size && !size.price)
-					? itemSizes.map((size) => ({ ...size }))
-					: variation.sizes,
-			}))
-		)
-	}, [itemSizes])
-
-	const initEmptyVariations = () => {
-		useEffect(() => {
-			if (variations.length === 0 && itemSizes.length !== 0) {
-				addNewVariation()
-			}
-		}, [])
-	}
-
-	const reinitItemSizes = () => {
-		useFocusEffect(
-			useCallback(() => {
-				if (itemSizes.length === 0) {
-					setItemSizes([{ size: '', price: '' }])
-				}
-			}, [itemSizes])
-		)
-	}
+	const [addOns, setAddOns] = useState([{ name: '', price: '' }])
 
 	const resetMenuConfig = () => {
 		setItemName(defItemName)
@@ -84,6 +56,8 @@ export const Menu = () => {
 		setItemSizes(defSizes)
 		setVariations(defVariations)
 	}
+
+	// 						------- Add Item Name and Image ------
 
 	const addItem = (newItem) => {
 		setMenuItems((prevItems) => [...prevItems, newItem])
@@ -102,6 +76,46 @@ export const Menu = () => {
 		}
 	}
 
+	// 						------ Add Item Sizes and Prices
+
+	// for reinitializing empty row because it disappears when going
+	// back to this screen from variations screen if there is no
+	// itemSizes value
+	const reinitItemSizes = () => {
+		useFocusEffect(
+			useCallback(() => {
+				if (itemSizes.length === 0) {
+					setItemSizes([{ size: '', price: '' }])
+				}
+			}, [itemSizes])
+		)
+	}
+
+	// 						------ Add Item Variations ------
+
+	// Initialize variation sizes and prices from itemSizes value
+	useEffect(() => {
+		setVariations((prevVariations) =>
+			(prevVariations ?? []).map((variation) => ({
+				...variation,
+				sizes: variation.sizes.every((size) => !size.size && !size.price)
+					? itemSizes.map((size) => ({ ...size }))
+					: variation.sizes,
+			}))
+		)
+	}, [itemSizes])
+
+	// for initializing empty variation item if variations value is empty
+	const initEmptyVariations = () => {
+		useEffect(() => {
+			if (variations.length === 0 && itemSizes.length !== 0) {
+				addNewVariation()
+			}
+		}, [])
+	}
+
+	// add variation button
+	// sets default value of new variation with item Sizes value
 	const addNewVariation = () => {
 		const newVariation = {
 			variation: '',
@@ -110,11 +124,20 @@ export const Menu = () => {
 		setVariations((prevVariations) => [...prevVariations, newVariation])
 	}
 
+	// remove variation item button
 	const removeVariation = (index) => {
 		const updatedVariations = variations.filter((_, i) => i !== index)
 		setVariations(updatedVariations)
 	}
 
+	// add variation item size and price row button
+	const addSizeToVariation = (variationIndex) => {
+		const updatedVariations = [...variations]
+		updatedVariations[variationIndex].sizes.push({ size: '', price: '' })
+		setVariations(updatedVariations)
+	}
+
+	// remove variation item's size row and price button
 	const removeVariationSize = (variationIndex, sizeIndex) => {
 		const updatedVariations = [...variations]
 		updatedVariations[variationIndex].sizes = updatedVariations[
@@ -123,12 +146,7 @@ export const Menu = () => {
 		setVariations(updatedVariations)
 	}
 
-	const addSizeToVariation = (variationIndex) => {
-		const updatedVariations = [...variations]
-		updatedVariations[variationIndex].sizes.push({ size: '', price: '' })
-		setVariations(updatedVariations)
-	}
-
+	// variation item input changes
 	const handleVariationChange = (index, value) => {
 		const updatedVariations = [...variations]
 		updatedVariations[index].variation = value
@@ -146,6 +164,14 @@ export const Menu = () => {
 		updatedVariations[variationIndex].sizes[sizeIndex].price = value
 		setVariations(updatedVariations)
 	}
+
+	// 						------ Add Item AddOn ------
+
+	const handleAddAddOn = () => {
+		setAddOns([...addOns, { name: '', price: '' }])
+	}
+
+	// 						------ Values to use for menu backend ------
 
 	return {
 		resetMenuConfig,

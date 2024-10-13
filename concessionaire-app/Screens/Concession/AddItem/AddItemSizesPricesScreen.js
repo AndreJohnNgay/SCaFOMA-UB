@@ -40,9 +40,6 @@ const AddItemSizesPricesScreen = ({ navigation }) => {
 	}
 
 	const handleNext = () => {
-		const filteredSizes = itemSizes.filter((item) => item.size && item.price)
-		setItemSizes(filteredSizes)
-
 		navigation.navigate('AddItemVariations')
 	}
 

@@ -6,17 +6,17 @@ import {
 	TouchableOpacity,
 	FlatList,
 	StyleSheet,
-	KeyboardAvoidingView
+	KeyboardAvoidingView,
 } from 'react-native'
 
 const AddItemAddOnsScreen = ({ navigation, route }) => {
 	const { updatedItem, onAddItem } = route.params
 
-	const [addOns, setAddOns] = useState([{ name: '', price: '' }])
+	// const [addOns, setAddOns] = useState([{ name: '', price: '' }])
 
-	const handleAddAddOn = () => {
-		setAddOns([...addOns, { name: '', price: '' }])
-	}
+	// const handleAddAddOn = () => {
+	// 	setAddOns([...addOns, { name: '', price: '' }])
+	// }
 
 	const handleAddOnNameChange = (index, value) => {
 		const newAddOns = [...addOns]
@@ -34,7 +34,7 @@ const AddItemAddOnsScreen = ({ navigation, route }) => {
 		const filteredAddOns = addOns.filter((addOn) => addOn.name && addOn.price)
 		const updatedItemWithAddOns = {
 			...updatedItem,
-			addOns: filteredAddOns
+			addOns: filteredAddOns,
 		}
 
 		onAddItem(updatedItemWithAddOns)
@@ -102,17 +102,17 @@ const AddItemAddOnsScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#2c2c2c'
+		backgroundColor: '#2c2c2c',
 	},
 	content: {
 		flex: 1,
-		padding: 20
+		padding: 20,
 	},
 	title: {
 		fontSize: 24,
 		fontWeight: 'bold',
 		color: '#fff',
-		marginBottom: 20
+		marginBottom: 20,
 	},
 	addOnContainer: {
 		flexDirection: 'row',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#333',
 		padding: 10,
 		borderRadius: 5,
-		marginBottom: 5
+		marginBottom: 5,
 	},
 	addOnInput: {
 		backgroundColor: '#444',
@@ -129,27 +129,27 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 5,
 		flex: 1,
-		marginRight: 5
+		marginRight: 5,
 	},
 	addOnPriceInput: {
 		backgroundColor: '#444',
 		color: '#fff',
 		padding: 10,
 		borderRadius: 5,
-		width: '30%'
+		width: '30%',
 	},
 	addAddOnButton: {
 		backgroundColor: 'rgb(174,12,46)',
 		padding: 10,
 		borderRadius: 5,
 		alignItems: 'center',
-		marginBottom: 15
+		marginBottom: 15,
 	},
 	buttonContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		padding: 20,
-		backgroundColor: '#2c2c2c'
+		backgroundColor: '#2c2c2c',
 	},
 	submitButton: {
 		backgroundColor: 'rgb(174,12,46)',
@@ -157,20 +157,20 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		flex: 1,
 		marginRight: 10,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	closeButton: {
 		backgroundColor: 'red',
 		padding: 10,
 		borderRadius: 5,
 		flex: 1,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	buttonText: {
 		color: '#fff',
 		fontWeight: 'bold',
-		textAlign: 'center'
-	}
+		textAlign: 'center',
+	},
 })
 
 export default AddItemAddOnsScreen
