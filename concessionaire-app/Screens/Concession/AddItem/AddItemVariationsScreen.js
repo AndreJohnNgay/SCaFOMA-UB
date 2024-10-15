@@ -14,14 +14,14 @@ const AddItemVariationsScreen = ({ navigation }) => {
 	const {
 		itemName,
 		variations,
+		initEmptyVariations,
 		addNewVariation,
 		removeVariation,
 		addSizeToVariation,
 		removeVariationSize,
-		handleVariationChange,
-		handleSizeChange,
-		handlePriceChange,
-		initEmptyVariations,
+		handleVariationItemChange,
+		handleVariationSizeChange,
+		handleVariationPriceChange,
 	} = useMenuBackend()
 
 	initEmptyVariations()
@@ -37,14 +37,16 @@ const AddItemVariationsScreen = ({ navigation }) => {
 			<TextInput
 				placeholder={`Size ${index + 1}`}
 				value={item.size}
-				onChangeText={(value) => handleSizeChange(variationIndex, index, value)}
+				onChangeText={(value) =>
+					handleVariationSizeChange(variationIndex, index, value)
+				}
 				style={styles.sizeInput}
 			/>
 			<TextInput
 				placeholder="₱ Price"
 				value={item.price}
 				onChangeText={(value) =>
-					handlePriceChange(variationIndex, index, value)
+					handleVariationPriceChange(variationIndex, index, value)
 				}
 				keyboardType="numeric"
 				style={styles.priceInput}
@@ -63,7 +65,7 @@ const AddItemVariationsScreen = ({ navigation }) => {
 			<TextInput
 				placeholder={`Variation ${index + 1}`}
 				value={item.variation}
-				onChangeText={(value) => handleVariationChange(index, value)}
+				onChangeText={(value) => handleVariationItemChange(index, value)}
 				style={styles.variationInput}
 			/>
 

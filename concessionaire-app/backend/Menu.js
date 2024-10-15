@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 const phImage = 'https://via.placeholder.com/100x100.png?text=No+Image'
 
+// temporary database
 const menuTemp = [
 	{
 		name: 'Hot Dog',
@@ -41,6 +42,7 @@ const defItemName = ''
 const defImage = phImage
 const defSizes = [{ size: '', price: '' }]
 const defVariations = []
+const defAddOns = [{ name: '', price: '' }]
 
 export const Menu = () => {
 	const [menuItems, setMenuItems] = useState(menuTemp)
@@ -48,14 +50,18 @@ export const Menu = () => {
 	const [image, setImage] = useState(defImage)
 	const [itemSizes, setItemSizes] = useState(defSizes)
 	const [variations, setVariations] = useState(defVariations)
-	const [addOns, setAddOns] = useState([{ name: '', price: '' }])
+	const [addOns, setAddOns] = useState(defAddOns)
 
-	const resetMenuConfig = () => {
-		setItemName(defItemName)
-		setImage(defImage)
-		setItemSizes(defSizes)
-		setVariations(defVariations)
-	}
+	const resetMenuConfig = useCallback(() => {
+		if (itemName !== defItemName) setItemName(defItemName)
+		if (image !== defImage) setImage(defImage)
+		if (JSON.stringify(itemSizes) !== JSON.stringify(defSizes))
+			setItemSizes(defSizes)
+		if (JSON.stringify(variations) !== JSON.stringify(defVariations))
+			setVariations(defVariations)
+		if (JSON.stringify(addOns) !== JSON.stringify(defAddOns))
+			setAddOns(defAddOns)
+	}, [itemName, image, itemSizes, variations, addOns])
 
 	// 						------- Add Item Name and Image ------
 
@@ -89,6 +95,31 @@ export const Menu = () => {
 				}
 			}, [itemSizes])
 		)
+	}
+
+	// add size button
+	const handleAddSize = () => {
+		setItemSizes([...itemSizes, { size: '', price: '' }])
+	}
+
+	// remove size button
+	const handleRemoveSize = (index) => {
+		const newSizes = itemSizes.filter((_, i) => i !== index)
+		setItemSizes(newSizes)
+	}
+
+	// handle item price input
+	const handleItemSizeChange = (index, value) => {
+		const newSizes = [...itemSizes]
+		newSizes[index].size = value
+		setItemSizes(newSizes)
+	}
+
+	// handle item price input
+	const handleItemPriceChange = (index, value) => {
+		const newSizes = [...itemSizes]
+		newSizes[index].price = value
+		setItemSizes(newSizes)
 	}
 
 	// 						------ Add Item Variations ------
@@ -147,19 +178,19 @@ export const Menu = () => {
 	}
 
 	// variation item input changes
-	const handleVariationChange = (index, value) => {
+	const handleVariationItemChange = (index, value) => {
 		const updatedVariations = [...variations]
 		updatedVariations[index].variation = value
 		setVariations(updatedVariations)
 	}
 
-	const handleSizeChange = (variationIndex, sizeIndex, value) => {
+	const handleVariationSizeChange = (variationIndex, sizeIndex, value) => {
 		const updatedVariations = [...variations]
 		updatedVariations[variationIndex].sizes[sizeIndex].size = value
 		setVariations(updatedVariations)
 	}
 
-	const handlePriceChange = (variationIndex, sizeIndex, value) => {
+	const handleVariationPriceChange = (variationIndex, sizeIndex, value) => {
 		const updatedVariations = [...variations]
 		updatedVariations[variationIndex].sizes[sizeIndex].price = value
 		setVariations(updatedVariations)
@@ -171,12 +202,71 @@ export const Menu = () => {
 		setAddOns([...addOns, { name: '', price: '' }])
 	}
 
+	const handleRemoveAddOn = (index) => {
+		const updatedAddOns = addOns.filter((_, i) => i !== index)
+		setAddOns(updatedAddOns)
+	}
+
+	const handleAddOnNameChange = (index, value) => {
+		const newAddOns = [...addOns]
+		newAddOns[index].name = value
+		setAddOns(newAddOns)
+	}
+
+	const handleAddOnPriceChange = (index, value) => {
+		const newAddOns = [...addOns]
+		newAddOns[index].price = value
+		setAddOns(newAddOns)
+	}
+
+	// 						------ Handling MenuItems ------
+
+	const handleMenuAddItem = () => {
+		// Create a new item object with the specified properties
+		const newMenuItem = {
+			name: itemName,
+			sizes: itemSizes, // this should be itemSizes, not image
+			image: image, // this should be image, not itemSizes
+			variations: variations,
+			addOns: addOns,
+		}
+
+		console.log(newMenuItem)
+
+		// Update the menuItems state by adding the new item
+		setMenuItems((prevMenuItems) => [...prevMenuItems, newMenuItem])
+	}
+
+	const handleRemoveItem = (item, index) => {
+		// Implement confirmation dialog before removing the item
+		Alert.alert(
+			'Confirm Deletion',
+			`Are you sure you want to remove ${item.name}?`,
+			[
+				{
+					text: 'Cancel',
+					style: 'cancel',
+				},
+				{
+					text: 'Remove',
+					onPress: () => {
+						const updatedMenuItems = menuItems.filter((_, i) => i !== index)
+						setMenuItems(updatedMenuItems)
+					},
+				},
+			],
+			{ cancelable: true }
+		)
+	}
+
 	// 						------ Values to use for menu backend ------
 
 	return {
 		resetMenuConfig,
 		menuItems,
 		setMenuItems,
+
+		// add items screen
 		addItem,
 		itemName,
 		setItemName,
@@ -184,17 +274,37 @@ export const Menu = () => {
 		image,
 		setImage,
 		pickImage,
+
+		// add item sizes screen
 		itemSizes,
 		setItemSizes,
 		reinitItemSizes,
+		handleAddSize,
+		handleRemoveSize,
+		handleItemSizeChange,
+		handleItemPriceChange,
+
+		// add item variations screen
 		variations,
 		initEmptyVariations,
 		addNewVariation,
 		removeVariation,
 		addSizeToVariation,
 		removeVariationSize,
-		handleVariationChange,
-		handleSizeChange,
-		handlePriceChange,
+		handleVariationItemChange,
+		handleVariationSizeChange,
+		handleVariationPriceChange,
+
+		// add item addon screen
+		addOns,
+		setAddOns,
+		handleAddAddOn,
+		handleRemoveAddOn,
+		handleAddOnNameChange,
+		handleAddOnPriceChange,
+
+		// handle menu
+		handleMenuAddItem,
+		handleRemoveItem,
 	}
 }

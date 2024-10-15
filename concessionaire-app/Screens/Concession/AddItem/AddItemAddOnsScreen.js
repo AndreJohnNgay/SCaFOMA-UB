@@ -8,36 +8,32 @@ import {
 	StyleSheet,
 	KeyboardAvoidingView,
 } from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons'
+import { useMenuBackend } from '../../../Contexts/BackendContext'
 
-const AddItemAddOnsScreen = ({ navigation, route }) => {
-	const { updatedItem, onAddItem } = route.params
-
-	// const [addOns, setAddOns] = useState([{ name: '', price: '' }])
-
-	// const handleAddAddOn = () => {
-	// 	setAddOns([...addOns, { name: '', price: '' }])
-	// }
-
-	const handleAddOnNameChange = (index, value) => {
-		const newAddOns = [...addOns]
-		newAddOns[index].name = value
-		setAddOns(newAddOns)
-	}
-
-	const handleAddOnPriceChange = (index, value) => {
-		const newAddOns = [...addOns]
-		newAddOns[index].price = value
-		setAddOns(newAddOns)
-	}
+const AddItemAddOnsScreen = ({ navigation }) => {
+	const {
+		itemName,
+		addOns,
+		setAddOns,
+		handleAddAddOn,
+		handleRemoveAddOn,
+		handleAddOnNameChange,
+		handleAddOnPriceChange,
+		handleMenuAddItem,
+	} = useMenuBackend()
 
 	const handleSubmit = () => {
 		const filteredAddOns = addOns.filter((addOn) => addOn.name && addOn.price)
-		const updatedItemWithAddOns = {
-			...updatedItem,
-			addOns: filteredAddOns,
-		}
+		// const updatedItemWithAddOns = {
+		// 	...updatedItem,
+		// 	addOns: filteredAddOns,
+		// }
+		setAddOns(filteredAddOns)
 
-		onAddItem(updatedItemWithAddOns)
+		handleMenuAddItem()
+
+		// onAddItem(updatedItemWithAddOns)
 		navigation.navigate('Concession')
 	}
 
@@ -58,6 +54,15 @@ const AddItemAddOnsScreen = ({ navigation, route }) => {
 				keyboardType="numeric"
 				style={styles.addOnPriceInput}
 			/>
+			<TouchableOpacity
+				style={styles.removeButton}
+				onPress={() => handleRemoveAddOn(index)}>
+				<Ionicons
+					name="remove-circle-outline"
+					size={24}
+					color="black"
+				/>
+			</TouchableOpacity>
 		</View>
 	)
 
@@ -66,7 +71,7 @@ const AddItemAddOnsScreen = ({ navigation, route }) => {
 			style={styles.container}
 			behavior="padding">
 			<View style={styles.content}>
-				<Text style={styles.title}>Add Add-Ons for {updatedItem.name}</Text>
+				<Text style={styles.title}>Add Add-Ons for {itemName}</Text>
 
 				<FlatList
 					data={addOns}
@@ -170,6 +175,13 @@ const styles = StyleSheet.create({
 		color: '#fff',
 		fontWeight: 'bold',
 		textAlign: 'center',
+	},
+	removeButton: {
+		backgroundColor: 'rgb(174,12,46)',
+		padding: 10,
+		borderRadius: 5,
+		alignItems: 'center',
+		marginLeft: 10,
 	},
 })
 

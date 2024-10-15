@@ -13,33 +13,22 @@ import { useMenuBackend } from '../../../Contexts/BackendContext'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
 const AddItemSizesPricesScreen = ({ navigation }) => {
-	const { itemName, itemSizes, setItemSizes, reinitItemSizes } =
-		useMenuBackend()
+	const {
+		itemName,
+		itemSizes,
+		setItemSizes,
+		reinitItemSizes,
+		handleAddSize,
+		handleRemoveSize,
+		handleItemSizeChange,
+		handleItemPriceChange,
+	} = useMenuBackend()
 
 	reinitItemSizes()
 
-	const handleAddSize = () => {
-		setItemSizes([...itemSizes, { size: '', price: '' }])
-	}
-
-	const handleRemoveSize = (index) => {
-		const newSizes = itemSizes.filter((_, i) => i !== index)
-		setItemSizes(newSizes)
-	}
-
-	const handleSizeChange = (index, value) => {
-		const newSizes = [...itemSizes]
-		newSizes[index].size = value
-		setItemSizes(newSizes)
-	}
-
-	const handlePriceChange = (index, value) => {
-		const newSizes = [...itemSizes]
-		newSizes[index].price = value
-		setItemSizes(newSizes)
-	}
-
 	const handleNext = () => {
+		const filteredSizes = itemSizes.filter((item) => item.size && item.price)
+		setItemSizes(filteredSizes)
 		navigation.navigate('AddItemVariations')
 	}
 
@@ -50,18 +39,18 @@ const AddItemSizesPricesScreen = ({ navigation }) => {
 			<TextInput
 				placeholder={`Size ${index + 1}`}
 				value={item.size}
-				onChangeText={(value) => handleSizeChange(index, value)}
+				onChangeText={(value) => handleItemSizeChange(index, value)}
 				style={styles.sizeInput}
 			/>
 			<TextInput
 				placeholder="₱ Price"
 				value={item.price}
-				onChangeText={(value) => handlePriceChange(index, value)}
+				onChangeText={(value) => handleItemPriceChange(index, value)}
 				keyboardType="numeric"
 				style={styles.priceInput}
 			/>
 			<TouchableOpacity
-				style={styles.addSizeButton}
+				style={styles.removeButton}
 				onPress={() => handleRemoveSize(index)}>
 				<Ionicons
 					name="remove-circle-outline"
@@ -187,8 +176,11 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	removeButton: {
-		color: '#fff',
+		backgroundColor: 'rgb(174,12,46)',
 		padding: 10,
+		borderRadius: 5,
+		alignItems: 'center',
+		marginVertical: 15,
 	},
 })
 
