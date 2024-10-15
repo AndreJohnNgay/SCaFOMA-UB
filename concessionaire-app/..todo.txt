@@ -1,8 +1,0 @@
-
-Styling:
-* style additemvariations
-
-
-Future:
-* Make css accessible in one file for consistency
-* Make additems into one file
