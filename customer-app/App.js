@@ -11,6 +11,9 @@ import ProfileScreen from './Screens/Profile/ProfileScreen';
 import MenuScreen from './Screens/Menu/MenuScreen';
 import FilterMenuScreen from './Screens/Menu/FilterMenuScreen';
 import ViewMenuItemScreen from './Screens/Menu/ViewMenuItemScreen';
+import RegisterScreen from './Screens/Auth/RegisterScreen';
+import ForgotPasswordScreen from './Screens/Auth/ForgotPasswordScreen';
+import PaymentScreen from './Screens/Cart/PaymentScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -56,6 +59,16 @@ export default function App() {
           options={{ headerShown: false }}  
         />
         <Stack.Screen 
+          name="Register" 
+          component={RegisterScreen} 
+          options={{ headerShown: false }}  
+        />
+        <Stack.Screen 
+          name="ForgotPassword" 
+          component={ForgotPasswordScreen} 
+          options={{ headerShown: false }}  
+        />
+        <Stack.Screen 
           name="Main" 
           component={MainTabs} 
           options={{ headerShown: false }}  
@@ -65,9 +78,14 @@ export default function App() {
           component={FilterMenuScreen} 
           options={{ headerShown: false }}  
         />
-                <Stack.Screen 
+        <Stack.Screen 
           name="ViewMenuItem" 
           component={ViewMenuItemScreen} 
+          options={{ headerShown: false }}  
+        />
+        <Stack.Screen 
+          name="Payment" 
+          component={PaymentScreen} 
           options={{ headerShown: false }}  
         />
       </Stack.Navigator>

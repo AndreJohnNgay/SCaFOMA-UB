@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import {
 	View,
 	StyleSheet,
@@ -9,7 +9,6 @@ import {
 import { Text } from 'react-native-paper'
 import { useMenuBackend } from '../../Contexts/BackendContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Dropdown } from 'internal-organization-dropdown-library'
 
 const ConcessionScreen = ({ navigation }) => {
 	const { resetMenuConfig, menuItems, handleRemoveItem } = useMenuBackend()
@@ -37,27 +36,6 @@ const ConcessionScreen = ({ navigation }) => {
 					{size.size}: ₱{size.price}
 				</Text>
 			))}
-
-			<View style={styles.buttonContainer}>
-				<Dropdown
-					options={['Edit', 'Delete']} // Dropdown options
-					onSelectOption={(option) => {
-						if (option === 'Edit') {
-							// Handle edit action
-							navigation.navigate('EditMenuItem', { item })
-						} else if (option === 'Delete') {
-							// Handle delete action
-							handleRemoveItem(item, index)
-						}
-					}}
-				/>
-
-				<TouchableOpacity
-					style={styles.viewButton}
-					onPress={() => navigation.navigate('ViewMenuItem', { item })}>
-					<Text style={styles.buttonText}>View</Text>
-				</TouchableOpacity>
-			</View>
 
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity

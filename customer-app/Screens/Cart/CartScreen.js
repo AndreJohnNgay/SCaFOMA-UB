@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 
 const CartScreen = () => {
+    const navigation = useNavigation(); // Get the navigation prop
     const [cartItems, setCartItems] = useState([
         {
             id: '1',
@@ -23,13 +25,13 @@ const CartScreen = () => {
         },
     ]);
 
-    const handlePlaceOrder = () => {
-        console.log("Order placed!");
+    const handleproceedToPayment = () => {
+        const totalPrice = cartItems.reduce((sum, item) => sum + item.totalPrice, 0); // Calculate total price
+        navigation.navigate('Payment', { totalPrice }); // Pass total price to PaymentScreen
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Cart</Text>
             {cartItems.length === 0 ? (
                 <Text style={styles.emptyMessage}>Your cart is empty.</Text>
             ) : (
@@ -49,11 +51,11 @@ const CartScreen = () => {
                 />
             )}
             <TouchableOpacity 
-                style={styles.placeOrderButton} 
-                onPress={handlePlaceOrder}
+                style={styles.proceedToPaymentButton} 
+                onPress={handleproceedToPayment}
                 disabled={cartItems.length === 0} 
             >
-                <Text style={styles.placeOrderButtonText}>Place Order</Text>
+                <Text style={styles.proceedToPaymentButtonText}>Proceed to Payment</Text>
             </TouchableOpacity>
         </View>
     );
@@ -94,14 +96,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'rgb(174,12,46)',
     },
-    placeOrderButton: {
+    proceedToPaymentButton: {
         backgroundColor: 'rgb(174,12,46)',
         padding: 15,
         borderRadius: 8,
         marginTop: 20,
         alignItems: 'center',
     },
-    placeOrderButtonText: {
+    proceedToPaymentButtonText: {
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 18,
