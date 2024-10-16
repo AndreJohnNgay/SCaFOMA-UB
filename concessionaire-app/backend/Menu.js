@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import { useFocusEffect } from '@react-navigation/native'
+import { Alert } from 'react-native'
 
 const phImage = 'https://via.placeholder.com/100x100.png?text=No+Image'
 

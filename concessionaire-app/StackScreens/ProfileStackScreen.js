@@ -6,11 +6,15 @@ const ProfileStack = createNativeStackNavigator()
 
 export default function ProfileStackScreen() {
 	return (
-		<ProfileStack.Navigator>
+		<ProfileStack.Navigator screenOptions={screenOptions}>
 			<ProfileStack.Screen
 				name="Profile"
 				component={ProfileScreen}
 			/>
 		</ProfileStack.Navigator>
 	)
+}
+
+const screenOptions = {
+	headerShown: false,
 }

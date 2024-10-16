@@ -6,7 +6,8 @@ import ConcessionStackScreen from './ConcessionStackScreen'
 import OrdersScreen from '../Screens/Orders/OrdersScreen'
 import ScanQRScreen from '../Screens/ScanQR/ScanQRScreen'
 import GraphsScreen from '../Screens/Graphs/GraphsScreen'
-import ProfileScreen from '../Screens/Profile/ProfileScreen'
+import ProfileStackScreen from './ProfileStackScreen'
+import OrdersStackScreen from './OrdersStackScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -14,16 +15,17 @@ export default function BottomTabStackNavigation() {
 	return (
 		<Tab.Navigator screenOptions={styles.navigatorOptions}>
 			<Tab.Screen
-				name="Orders"
-				component={OrdersScreen}
+				name="OrdersStack"
+				component={OrdersStackScreen}
 				options={{
+					tabBarLabel: 'Orders',
 					tabBarIcon: ({ color }) => (
 						<Ionicons
 							name="list"
 							size={24}
 							color={color}
 						/>
-					)
+					),
 				}}
 			/>
 			<Tab.Screen
@@ -37,7 +39,7 @@ export default function BottomTabStackNavigation() {
 							size={24}
 							color={color}
 						/>
-					)
+					),
 				}}
 			/>
 			<Tab.Screen
@@ -50,7 +52,7 @@ export default function BottomTabStackNavigation() {
 							size={24}
 							color={color}
 						/>
-					)
+					),
 				}}
 			/>
 			<Tab.Screen
@@ -63,12 +65,12 @@ export default function BottomTabStackNavigation() {
 							size={24}
 							color={color}
 						/>
-					)
+					),
 				}}
 			/>
 			<Tab.Screen
 				name="Profile"
-				component={ProfileScreen}
+				component={ProfileStackScreen}
 				options={{
 					tabBarIcon: ({ color }) => (
 						<Ionicons
@@ -76,7 +78,7 @@ export default function BottomTabStackNavigation() {
 							size={24}
 							color={color}
 						/>
-					)
+					),
 				}}
 			/>
 		</Tab.Navigator>
@@ -88,6 +90,6 @@ const styles = StyleSheet.create({
 		tabBarActiveTintColor: 'rgb(174,12,46)',
 		tabBarInactiveTintColor: '#fff',
 		tabBarStyle: { backgroundColor: '#2c2c2c' },
-		headerShown: false
-	}
+		headerShown: false,
+	},
 })

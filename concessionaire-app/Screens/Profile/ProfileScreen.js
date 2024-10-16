@@ -10,30 +10,17 @@ import {
 	TouchableOpacity,
 	ScrollView,
 } from 'react-native'
+import { useProfileBackend } from '../../Contexts/BackendContext'
 
 const ProfileScreen = () => {
+	const {} = useProfileBackend()
 	// Sample user data
 	const [firstName, setFirstName] = useState('John')
 	const [lastName, setLastName] = useState('Doe')
 	const [email, setEmail] = useState('johndoe@example.com')
 	const [profileImage, setProfileImage] = useState(
 		'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s'
-	) // Replace with actual image URL
-
-	const handleEditProfile = () => {
-		// Handle the profile editing logic here
-		Alert.alert('Profile Edited', 'Your profile has been updated successfully!')
-	}
-
-	const handleLogout = () => {
-		// Handle logout logic here
-		Alert.alert('Logged Out', 'You have been logged out successfully!')
-	}
-
-	const handleChangeProfileImage = () => {
-		// Handle profile image change logic here
-		Alert.alert('Change Profile Image', 'This feature is not implemented yet.')
-	}
+	)
 
 	return (
 		<View style={styles.screenContainer}>

@@ -1,6 +1,8 @@
 import React, { createContext, useContext } from 'react'
 import { Auth } from '../backend/Auth'
 import { Menu } from '../backend/Menu'
+import { Profile } from '../backend/Profile'
+import Orders from '../backend/Orders'
 
 /*
 	create function modules in backend and import the object they return here
@@ -13,6 +15,8 @@ export const BackendProvider = ({ children }) => {
 	const Backend = {
 		Auth: Auth(),
 		Menu: Menu(),
+		Profile: Profile(),
+		Orders: Orders(),
 	}
 
 	return (
@@ -29,4 +33,11 @@ export const useAuthBackend = () => {
 
 export const useMenuBackend = () => {
 	return useContext(BackendContext).Menu
+}
+
+export const useProfileBackend = () => {
+	return useContext(BackendContext).Profile
+}
+export const useOrdersBackend = () => {
+	return useContext(BackendContext).Orders
 }

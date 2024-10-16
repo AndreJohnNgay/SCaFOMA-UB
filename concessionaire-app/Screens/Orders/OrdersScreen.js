@@ -1,67 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
 	View,
 	Text,
 	StyleSheet,
 	FlatList,
 	TouchableOpacity,
-	ScrollView
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useOrdersBackend } from '../../Contexts/BackendContext'
 
 const OrdersScreen = ({ navigation }) => {
-	const [pendingOrders, setPendingOrders] = useState([
-		{
-			id: '1',
-			customerName: 'John Doe',
-			items: [
-				{ id: '1a', item: 'Pizza', quantity: 1, price: 80 },
-				{ id: '1b', item: 'Burger', quantity: 2, price: 50 }
-			],
-			status: 'pending',
-			totalPrice: 180
-		},
-		{
-			id: '2',
-			customerName: 'Jane Smith',
-			items: [{ id: '2a', item: 'Fries', quantity: 3, price: 30 }],
-			status: 'pending',
-			totalPrice: 90
-		}
-	])
+	const { loadOrders, pendingOrders, acceptedOrders } = useOrdersBackend()
 
-	const [acceptedOrders, setAcceptedOrders] = useState([
-		{
-			id: '3',
-			customerName: 'Alice Johnson',
-			items: [{ id: '3a', item: 'Pasta', quantity: 1, price: 100 }],
-			status: 'accepted',
-			totalPrice: 100
-		}
-	])
+	useEffect(() => {
+		loadOrders()
+	}, [])
 
-	const viewOrder = (order) => {
+	const handleViewOrder = (order) => {
 		navigation.navigate('ViewOrder', {
 			order,
-			setPendingOrders,
-			setAcceptedOrders
 		})
 	}
 
+	const renderOrder = ({ item }) => (
+		<View style={styles.orderItem}>
+			<Text style={styles.orderText}>{item.customerName}</Text>
+			<TouchableOpacity
+				style={styles.viewButton}
+				onPress={() => handleViewOrder(item)}>
+				<Text style={styles.buttonText}>View</Text>
+			</TouchableOpacity>
+		</View>
+	)
+
 	return (
-		<View style={styles.screenContainer}>
+		<SafeAreaView style={styles.screenContainer}>
 			<Text style={styles.subtitle}>Pending Orders</Text>
 			<FlatList
 				data={pendingOrders}
-				renderItem={({ item }) => (
-					<View style={styles.orderItem}>
-						<Text style={styles.orderText}>{item.customerName}</Text>
-						<TouchableOpacity
-							style={styles.viewButton}
-							onPress={() => viewOrder(item)}>
-							<Text style={styles.buttonText}>View</Text>
-						</TouchableOpacity>
-					</View>
-				)}
+				renderItem={renderOrder}
 				keyExtractor={(item) => item.id}
 				style={styles.orderList}
 				showsVerticalScrollIndicator={false}
@@ -70,21 +47,12 @@ const OrdersScreen = ({ navigation }) => {
 			<Text style={styles.subtitle}>Accepted Orders</Text>
 			<FlatList
 				data={acceptedOrders}
-				renderItem={({ item }) => (
-					<View style={styles.orderItem}>
-						<Text style={styles.orderText}>{item.customerName}</Text>
-						<TouchableOpacity
-							style={styles.viewButton}
-							onPress={() => viewOrder(item)}>
-							<Text style={styles.buttonText}>View</Text>
-						</TouchableOpacity>
-					</View>
-				)}
+				renderItem={renderOrder}
 				keyExtractor={(item) => item.id}
 				style={styles.orderList}
 				showsVerticalScrollIndicator={false}
 			/>
-		</View>
+		</SafeAreaView>
 	)
 }
 
@@ -92,22 +60,16 @@ const styles = StyleSheet.create({
 	screenContainer: {
 		flex: 1,
 		backgroundColor: '#2c2c2c',
-		padding: 20
-	},
-	title: {
-		fontSize: 28,
-		fontWeight: 'bold',
-		color: '#fff',
-		marginBottom: 20
+		padding: 20,
 	},
 	subtitle: {
 		fontSize: 20,
 		fontWeight: 'bold',
 		color: '#fff',
-		marginVertical: 10
+		marginVertical: 10,
 	},
 	orderList: {
-		marginBottom: 20
+		marginBottom: 20,
 	},
 	orderItem: {
 		backgroundColor: '#444',
@@ -116,21 +78,21 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	orderText: {
 		color: '#fff',
-		fontSize: 16
+		fontSize: 16,
 	},
 	viewButton: {
 		backgroundColor: 'rgb(174,12,46)',
 		padding: 10,
-		borderRadius: 5
+		borderRadius: 5,
 	},
 	buttonText: {
 		color: '#fff',
-		fontWeight: 'bold'
-	}
+		fontWeight: 'bold',
+	},
 })
 
 export default OrdersScreen
