@@ -10,17 +10,28 @@ import {
 	TouchableOpacity,
 	ScrollView,
 } from 'react-native'
-import { useProfileBackend } from '../../Contexts/BackendContext'
+import {
+	useAuthBackend,
+	useProfileBackend,
+} from '../../Contexts/BackendContext'
 
 const ProfileScreen = () => {
-	const {} = useProfileBackend()
-	// Sample user data
-	const [firstName, setFirstName] = useState('John')
-	const [lastName, setLastName] = useState('Doe')
-	const [email, setEmail] = useState('johndoe@example.com')
-	const [profileImage, setProfileImage] = useState(
-		'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s'
-	)
+	const { logout } = useAuthBackend()
+	const {
+		firstName,
+		setFirstName,
+		lastName,
+		setLastName,
+		profileImage,
+		setProfileImage,
+		handleChangeProfileImage,
+		handleEditChanges,
+	} = useProfileBackend()
+
+	const handleLogout = () => {
+		Alert.alert('Logged Out', 'You have been logged out successfully!')
+		logout()
+	}
 
 	return (
 		<View style={styles.screenContainer}>
@@ -53,23 +64,13 @@ const ProfileScreen = () => {
 						onChangeText={setLastName}
 					/>
 				</View>
-
-				<View style={styles.inputContainer}>
-					<Text style={styles.label}>Email:</Text>
-					<TextInput
-						style={styles.input}
-						value={email}
-						onChangeText={setEmail}
-						keyboardType="email-address"
-					/>
-				</View>
 			</ScrollView>
 
 			<View style={styles.buttonContainer}>
 				<View style={styles.buttonWrapper}>
 					<Button
-						title="Edit Profile"
-						onPress={handleEditProfile}
+						title="Save Changes"
+						onPress={handleEditChanges}
 						color="rgb(174,12,46)"
 					/>
 				</View>

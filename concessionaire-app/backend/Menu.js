@@ -264,8 +264,12 @@ export const Menu = () => {
 
 	return {
 		resetMenuConfig,
+
+		// menu
 		menuItems,
 		setMenuItems,
+		handleMenuAddItem,
+		handleRemoveItem,
 
 		// add items screen
 		addItem,
@@ -303,9 +307,5 @@ export const Menu = () => {
 		handleRemoveAddOn,
 		handleAddOnNameChange,
 		handleAddOnPriceChange,
-
-		// handle menu
-		handleMenuAddItem,
-		handleRemoveItem,
 	}
 }

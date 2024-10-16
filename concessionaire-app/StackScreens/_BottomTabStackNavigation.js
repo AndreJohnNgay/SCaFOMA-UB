@@ -43,9 +43,10 @@ export default function BottomTabStackNavigation() {
 				}}
 			/>
 			<Tab.Screen
-				name="ScanQR"
+				name="ScanQRStack"
 				component={ScanQRScreen}
 				options={{
+					tabBarLabel: 'ScanQR',
 					tabBarIcon: ({ color }) => (
 						<Ionicons
 							name="qr-code"
@@ -56,9 +57,10 @@ export default function BottomTabStackNavigation() {
 				}}
 			/>
 			<Tab.Screen
-				name="Graphs"
+				name="GraphsStack"
 				component={GraphsScreen}
 				options={{
+					tabBarLabel: 'Graphs',
 					tabBarIcon: ({ color }) => (
 						<Ionicons
 							name="bar-chart"
@@ -69,9 +71,10 @@ export default function BottomTabStackNavigation() {
 				}}
 			/>
 			<Tab.Screen
-				name="Profile"
+				name="ProfileStack"
 				component={ProfileStackScreen}
 				options={{
+					tabBarLabel: 'Profile',
 					tabBarIcon: ({ color }) => (
 						<Ionicons
 							name="person"

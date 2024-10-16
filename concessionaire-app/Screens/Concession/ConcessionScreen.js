@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
 	View,
 	StyleSheet,
@@ -11,22 +11,72 @@ import { useMenuBackend } from '../../Contexts/BackendContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const ConcessionScreen = ({ navigation }) => {
-	const { resetMenuConfig, menuItems, handleRemoveItem } = useMenuBackend()
+	const { resetMenuConfig, menuItems, setMenuItems } = useMenuBackend()
 
-	useEffect(() => {
-		resetMenuConfig()
-	}, [resetMenuConfig])
-
-	const handleAddItem = () => {
-		navigation.navigate('AddItem')
+	// Function to handle long press and toggle availability
+	const handleLongPress = (item, index) => {
+		const newStatus = item.available ? 'Out of Stock' : 'Available'
+		Alert.alert(
+			'Change Availability',
+			`Mark ${item.name} as ${newStatus}?`,
+			[
+				{
+					text: 'Cancel',
+					style: 'cancel',
+				},
+				{
+					text: 'Confirm',
+					onPress: () => {
+						const updatedMenuItems = [...menuItems]
+						updatedMenuItems[index].available = !item.available
+						setMenuItems(updatedMenuItems)
+					},
+				},
+			],
+			{ cancelable: true }
+		)
 	}
 
+	const handleAddItem = useCallback(() => {
+		resetMenuConfig()
+		navigation.navigate('AddItem')
+	}, [navigation])
+
+	const handleRemoveItem = useCallback(
+		(item, index) => {
+			Alert.alert(
+				'Confirm Deletion',
+				`Are you sure you want to remove ${item.name}?`,
+				[
+					{
+						text: 'Cancel',
+						style: 'cancel',
+					},
+					{
+						text: 'Remove',
+						onPress: () => {
+							const updatedMenuItems = menuItems.filter((_, i) => i !== index)
+							setMenuItems(updatedMenuItems)
+						},
+					},
+				],
+				{ cancelable: true }
+			)
+		},
+		[menuItems, setMenuItems]
+	)
+
 	const renderMenuItem = ({ item, index }) => (
-		<View style={styles.menuItemContainer}>
+		<TouchableOpacity
+			onLongPress={() => handleLongPress(item, index)}
+			style={[
+				styles.menuItemContainer,
+				{ backgroundColor: item.available ? '#444' : '#808080' }, // Grey out if out of stock
+			]}>
 			<Text
 				variant="titleLarge"
 				style={styles.menuItemName}>
-				{item.name}
+				{item.name} {item.available ? '(Available)' : '(Out of Stock)'}
 			</Text>
 
 			{item.sizes.map((size, index) => (
@@ -50,7 +100,7 @@ const ConcessionScreen = ({ navigation }) => {
 					<Text style={styles.buttonText}>Remove</Text>
 				</TouchableOpacity>
 			</View>
-		</View>
+		</TouchableOpacity>
 	)
 
 	return (
